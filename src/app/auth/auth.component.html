@@ -1,0 +1,131 @@
+<div class="auth-container">
+    <!-- Back to home -->
+    <div class="back-home" (click)="goBackHome()">
+        <span class="arrow">&#8592;</span> Back to Home
+    </div>
+
+    <!-- Logo -->
+    <div class="logo">
+        <span class="logo-text bg-gradient-to-r rounded-xl">W</span>
+    </div>
+
+    <!-- Welcome text -->
+    <h2>Welcome to WeekOut</h2>
+    <p>Join the community of weekend adventurers</p>
+
+    <!-- Toggle Login / Signup -->
+    <div class="toggle-buttons">
+        <button class="bg-gradient-to-r rounded-xl" [class.active]="isLoginMode" (click)="isLoginMode = true"
+            type="button">
+            Login
+        </button>
+        <button class="bg-gradient-to-r rounded-xl" [class.active]="!isLoginMode" (click)="isLoginMode = false"
+            type="button">
+            Signup
+        </button>
+    </div>
+
+    <!-- Login Form -->
+    <form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" class="form">
+        <button type="button" class="google-btn bg-gradient-to-r rounded-xl" (click)="continueWithGoogle()">
+            Continue with Google
+        </button>
+
+        <div class="divider">
+            <span>or continue with</span>
+        </div>
+
+        <input type="email" placeholder="Email" formControlName="email" autocomplete="username" />
+        <div class="error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            Please enter a valid email.
+        </div>
+        <div class="password-wrapper">
+            <input [type]="loginPasswordVisible ? 'text' : 'password'" placeholder="Password" formControlName="password"
+                autocomplete="current-password" />
+            <button type="button" class="eye-btn" (click)="toggleLoginPasswordVisibility()" [attr.aria-label]="
+          loginPasswordVisible ? 'Hide password' : 'Show password'
+        ">
+            <i class="fa" [ngClass]="
+                loginPasswordVisible ? 'fa-eye' : 'fa-eye-slash'
+            "></i>
+            </button>
+        </div>
+        <div class="error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            Password is required.
+        </div>
+
+        <button type="submit" class="submit-btn bg-gradient-to-r rounded-xl">
+            Sign In
+        </button>
+    </form>
+
+    <!-- Signup Form -->
+    <form *ngIf="!isLoginMode" [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()" class="form">
+        <button type="button" class="google-btn bg-gradient-to-r rounded-xl" (click)="continueWithGoogle()">
+            Continue with Google
+        </button>
+
+        <div class="divider">
+            <span>or continue with</span>
+        </div>
+
+        <input type="text" placeholder="Full Name" formControlName="fullName" autocomplete="name" />
+        <div class="error" *ngIf="signupForm.get('fullName')?.invalid && signupForm.get('fullName')?.touched">
+            Full Name is required.
+        </div>
+
+        <input type="email" placeholder="Email" formControlName="email" autocomplete="email" />
+        <div class="error" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+            Please enter a valid email.
+        </div>
+
+        <div class="password-wrapper">
+            <input [type]="signupPasswordVisible ? 'text' : 'password'" placeholder="Password"
+                formControlName="password" autocomplete="new-password" />
+            <button type="button" class="eye-btn" (click)="toggleSignupPasswordVisibility()" [attr.aria-label]="
+          signupPasswordVisible ? 'Hide password' : 'Show password'
+        ">
+
+            <i class="fa" [ngClass]="
+      signupPasswordVisible ? 'fa-eye' : 'fa-eye-slash'
+    "></i>
+            </button>
+        </div>
+        <div class="error" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+            Password is required.
+        </div>
+
+        <div class="password-wrapper">
+            <input [type]="signupConfirmPasswordVisible ? 'text' : 'password'" placeholder="Confirm Password"
+                formControlName="confirmPassword" autocomplete="new-password" />
+            <button type="button" class="eye-btn" (click)="toggleSignupConfirmPasswordVisibility()" [attr.aria-label]="
+          signupConfirmPasswordVisible ? 'Hide password' : 'Show password'
+        ">
+
+                <i class="fa" [ngClass]="
+      signupConfirmPasswordVisible ? 'fa-eye' : 'fa-eye-slash'
+    "></i>
+            </button>
+        </div>
+        <div class="error"
+            *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched">
+            Confirm Password is required.
+        </div>
+
+        <label class="interests-label">Select your interests:</label>
+        <div class="interests" formArrayName="interests"
+            [class.error-border]="signupForm.get('interests')?.invalid && signupForm.get('interests')?.touched">
+            <label *ngFor="let interestCtrl of signupInterestsControls; let i = index" class="interest-checkbox">
+                <input type="checkbox" [formControlName]="i" />
+                {{ interestsList[i] }}
+            </label>
+        </div>
+        <div class="error" *ngIf="signupForm.get('interests')?.invalid && signupForm.get('interests')?.touched">
+            Please select at least one interest.
+        </div>
+
+        <button type="submit" class="submit-btn bg-gradient-to-r rounded-xl">
+            Sign Up
+        </button>
+    </form>
+</div>
