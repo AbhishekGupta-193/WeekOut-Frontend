@@ -217,3 +217,140 @@ p.quote::after{
     font-size: 12px;
     color: oklch(.707 .022 261.325);
 }
+
+/* ===== Tablet Screens (768px and below) ===== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .hero {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+
+  .hero-text {
+    max-width: 100%;
+    text-align: center;
+  }
+
+.feature-cards{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+.features > p{
+    width: 100%;
+    margin-left: 0;
+}
+
+.testimonial-cards{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+}
+.header{
+    gap: 10px;
+}
+
+.hero-left p{
+    margin-right: 0;
+    text-align: center;
+}
+
+.hero-left h1{
+    text-align: center;
+}
+.hero-buttons{
+    justify-content: center;
+}
+.header-buttons{
+    display: none;
+}
+}
+
+/* ===== Mobile Screens (480px and below) ===== */
+@media (max-width: 480px) {
+  header {
+    padding: 15px;
+  }
+
+  nav ul {
+    gap: 8px;
+  }
+
+  .hero {
+    padding: 20px;
+  }
+
+  .hero-text {
+    font-size: 14px;
+  }
+
+  .start-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .feature-cards{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .features > p{
+    width: 100%;
+    margin-left: 0;
+}
+
+.testimonial-cards{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+}
+.header{
+    gap: 10px;
+}
+
+.hero-left p{
+    margin-right: 0;
+    text-align: center;
+}
+
+.hero-left h1{
+    text-align: center;
+}
+.hero-buttons{
+    justify-content: center;
+}
+.header-buttons{
+    display: none;
+}
+}
