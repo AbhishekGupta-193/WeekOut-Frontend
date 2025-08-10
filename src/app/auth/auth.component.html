@@ -86,9 +86,9 @@
           signupPasswordVisible ? 'Hide password' : 'Show password'
         ">
 
-            <i class="fa" [ngClass]="
-      signupPasswordVisible ? 'fa-eye' : 'fa-eye-slash'
-    "></i>
+        <i class="fa" [ngClass]="
+            signupPasswordVisible ? 'fa-eye' : 'fa-eye-slash'
+        "></i>
             </button>
         </div>
         <div class="error" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
@@ -102,9 +102,9 @@
           signupConfirmPasswordVisible ? 'Hide password' : 'Show password'
         ">
 
-                <i class="fa" [ngClass]="
-      signupConfirmPasswordVisible ? 'fa-eye' : 'fa-eye-slash'
-    "></i>
+        <i class="fa" [ngClass]="
+            signupConfirmPasswordVisible ? 'fa-eye' : 'fa-eye-slash'
+        "></i>
             </button>
         </div>
         <div class="error"

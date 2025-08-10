@@ -1,0 +1,90 @@
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon bg-gradient-to-r from-blue-600 to-purple-600">W</div>
+    <span class="logo-text">WeekOut</span>
+  </div>
+  <div class="header-buttons">
+    <button class="btn-outline">Login</button>
+    <button class="btn-gradient">Get Started</button>
+  </div>
+</header>
+
+<!-- ===== HERO SECTION ===== -->
+<section class="hero">
+  <div class="hero-left">
+    <h1>
+      Turn Your
+      <span class="gradient-text">Weekends</span>
+      Into Adventures
+    </h1>
+    <p>
+      Connect with young professionals in Bangalore. Discover new places, make
+      lasting friendships, and never have a boring weekend again.
+    </p>
+    <div class="hero-buttons">
+      <button class="btn-gradient">Start Planning Now &nbsp;&nbsp; > </button>
+      <button class="btn-outline">See How It Works</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img
+      src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+      alt="Weekend adventure group"
+    />
+  </div>
+</section>
+
+<!-- ===== FEATURES SECTION ===== -->
+<section class="features">
+  <h2>Why Young Professionals Love WeekendOut</h2>
+  <p>
+    Transform your social life with features designed for busy professionals
+    who want meaningful connections.
+  </p>
+
+  <div class="feature-cards">
+    <div class="card">
+      <span class="icon">🧠</span>
+      <h3>Smart Planning</h3>
+      <p>AI-powered suggestions based on your interests and availability</p>
+    </div>
+    <div class="card">
+      <span class="icon">🤝</span>
+      <h3>Find Your Tribe</h3>
+      <p>Connect with like-minded professionals in your city</p>
+    </div>
+    <div class="card">
+      <span class="icon">📍</span>
+      <h3>Discover Places</h3>
+      <p>Explore trending spots and hidden gems in your area</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS SECTION ===== -->
+<section class="testimonials">
+  <h2>Real Stories from Our Community</h2>
+
+  <div class="testimonial-cards">
+    <div class="testimonial" *ngFor="let t of testimonials">
+      <div class="stars">
+        <span *ngFor="let star of getStars(t.rating)">⭐</span>
+      </div>
+      <p class="quote">"{{ t.text }}"</p>
+      <p class="author">{{ t.name }}</p>
+      <p class="role">{{ t.role }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="logo">
+    <div class="logo-icon bg-gradient-to-r from-blue-600 to-purple-600">W</div>
+    <span class="logo-text">WeekOut</span>
+  </div>
+  <div class="footer-text">
+    © 2025 WeekOut. Making weekends better for young professionals.
+  </div>
+</footer>
