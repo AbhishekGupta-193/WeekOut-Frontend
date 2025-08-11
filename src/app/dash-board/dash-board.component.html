@@ -1,0 +1,167 @@
+<!-- Dashboard Header -->
+<header class="dashboard-header">
+  <!-- Left: Logo + Search -->
+  <div class="header-left">
+  <div class="logo">
+    <div class="logo-icon bg-gradient-to-r from-blue-600 to-purple-600">W</div>
+    <span class="logo-text">WeekOut</span>
+  </div>
+    <div class="search-wrapper">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search Plans..." class="search-bar" />
+    </div>
+  </div>
+
+  <!-- Right: Buttons -->
+  <div class="header-right">
+    <button class="btn-gradient">+ Create Plan</button>
+    <button class="icon-btn">
+      <i class="fas fa-bell"></i>
+    </button>
+    <button class="icon-btn">
+      <i class="fas fa-user-circle"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Welcome Section -->
+<section class="welcome-section bg-gradient-custom">
+  <h1>Good morning, John! 👋</h1>
+  <p>Ready to make this weekend awesome?</p>
+</section>
+
+<div class="welcome-buttons">
+  <button class="btn-gradient">+ Create Plan</button>
+  <button class="btn-outline">
+    <i class="fas fa-fire"></i> Trending
+  </button>
+</div>
+
+<!-- Toggle Navigation -->
+<nav class="toggle-nav">
+  <button
+    [class.active]="activeTab === 'explore'"
+    (click)="setActiveTab('explore')"
+  >
+    Explore Plans
+  </button>
+  <button
+    [class.active]="activeTab === 'forYou'"
+    (click)="setActiveTab('forYou')"
+  >
+    For You
+  </button>
+  <button
+    [class.active]="activeTab === 'nearby'"
+    (click)="setActiveTab('nearby')"
+  >
+    Nearby Spots
+  </button>
+</nav>
+
+<!-- Search + Filter Bar -->
+<div class="search-filter-bar">
+  <div class="search-wrapper2">
+    <i class="fas fa-search"></i>
+    <input type="text" placeholder="Search Plans..." class="search-bar2" />
+  </div>
+
+ <mat-form-field>
+  <mat-label>Plan Types</mat-label>
+  <mat-select [formControl]="planTypes" multiple>
+    <mat-select-trigger>
+      {{planTypes.value?.[0] || "All Types"}}
+      @if ((planTypes.value?.length || 0) > 1) {
+        <span class="example-additional-selection">
+          (+{{(planTypes.value?.length || 0) - 1}} {{planTypes.value?.length === 2 ? 'other' : 'others'}})
+        </span>
+      }
+    </mat-select-trigger>
+    @for (plan of planList; track plan) {
+  <mat-option [value]="plan">{{plan}}</mat-option>
+}
+  </mat-select>
+</mat-form-field>
+</div>
+
+
+
+<!-- Content Sections -->
+<div class="content-section">
+  <!-- EXPLORE PLANS -->
+  <div *ngIf="activeTab === 'explore'">
+    <div class="plan-card" *ngFor="let plan of explorePlans">
+      <div class="plan-header">
+        <i class="fas fa-mountain"></i>
+        <h3>{{ plan.title }}</h3>
+        <span class="tag">{{ plan.type }}</span>
+      </div>
+      <p><i class="fas fa-calendar"></i> {{ plan.date }} at {{ plan.time }}</p>
+      <p><i class="fas fa-map-marker-alt"></i> {{ plan.location }}</p>
+      <div class="tags">
+        <span *ngFor="let tag of plan.tags" class="tag">{{ tag }}</span>
+      </div>
+      <div class="host">
+        <span class="host-icon">{{ plan.hostInitial }}</span>
+        {{ plan.host }} <i class="fas fa-users"></i> {{ plan.people }}
+      </div>
+      <div class="plan-actions">
+        <button
+          *ngIf="!plan.joined"
+          class="btn-gradient"
+          (click)="joinPlan(plan)"
+        >
+          Join Plan
+        </button>
+        <div *ngIf="plan.joined" class="joined-actions">
+          <button class="btn-outline">
+            <i class="fas fa-comments"></i> Chat
+          </button>
+          <button class="btn-outline">Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOR YOU -->
+  <div *ngIf="activeTab === 'forYou'">
+    <h4>Based on your interests</h4>
+    <div class="tags">
+      <span class="tag">Photography</span>
+      <span class="tag">Trek</span>
+    </div>
+    <p class="info-text">
+      No personalized suggestions yet<br />
+      Join more plans or update your interests to get better recommendations.
+    </p>
+    <button class="btn-gradient">Update Interests</button>
+    <!-- Show Explore Plans Below -->
+    <div class="plan-card" *ngFor="let plan of explorePlans">
+      <!-- Same as above plan-card structure -->
+    </div>
+  </div>
+
+  <!-- NEARBY SPOTS -->
+  <div *ngIf="activeTab === 'nearby'">
+    <div class="spot-card" *ngFor="let spot of nearbySpots">
+      <div class="spot-header">
+        <i class="fas fa-tree"></i>
+        <h3>{{ spot.name }}</h3>
+        <span class="tag">{{ spot.distance }}</span>
+      </div>
+      <div class="tags">
+        <span *ngFor="let tag of spot.tags" class="tag">{{ tag }}</span>
+      </div>
+      <p><i class="fas fa-star"></i> {{ spot.rating }} Star</p>
+      <button class="btn-gradient">Create Plan</button>
+    </div>
+    <!-- Bottom Section -->
+    <div class="map-coming">
+      <i class="fas fa-map fa-3x faded"></i>
+      <p>Interactive map coming soon</p>
+      <small>
+        Discover nearby spots and plan meetups
+      </small>
+    </div>
+  </div>
+</div>

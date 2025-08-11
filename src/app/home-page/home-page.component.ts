@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -9,6 +10,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {
+
+constructor(
+  private router: Router
+) {}
+
 testimonials = [
     {
       rating: 5,
@@ -33,5 +39,9 @@ testimonials = [
   // Generate an array for star icons
   getStars(count: number): number[] {
     return Array(count).fill(0);
+  }
+
+  goToLogin(){
+    this.router.navigate(['/login']);
   }
 }

@@ -5,8 +5,8 @@
     <span class="logo-text">WeekOut</span>
   </div>
   <div class="header-buttons">
-    <button class="btn-outline">Login</button>
-    <button class="btn-gradient">Get Started</button>
+    <button class="btn-outline" (click)="goToLogin()">Login</button>
+    <button class="btn-gradient" (click)="goToLogin()">Get Started</button>
   </div>
 </header>
 
@@ -23,7 +23,7 @@
       lasting friendships, and never have a boring weekend again.
     </p>
     <div class="hero-buttons">
-      <button class="btn-gradient">Start Planning Now &nbsp;&nbsp; > </button>
+      <button class="btn-gradient" (click)="goToLogin()">Start Planning Now &nbsp;&nbsp; > </button>
       <button class="btn-outline">See How It Works</button>
     </div>
   </div>
