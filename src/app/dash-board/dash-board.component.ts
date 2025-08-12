@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dash-board',
   standalone: true,
@@ -20,6 +21,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   styleUrl: './dash-board.component.scss'
 })
 export class DashBoardComponent {
+  constructor(
+    private router: Router
+  ) {}
+  
   // planTypes = new FormControl('');
   planTypes = new FormControl<string[]>([]);
 
@@ -132,5 +137,13 @@ ngOnInit() {
 
   joinPlan(plan: any) {
     plan.joined = true;
+  }
+
+  goToCreatePlanPage(){
+    this.router.navigate(['/create-plan']);
+  }
+  
+  goToHomePage(){
+    this.router.navigate(['']);
   }
 }

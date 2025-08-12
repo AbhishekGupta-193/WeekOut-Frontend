@@ -2,7 +2,7 @@
 <header class="dashboard-header">
   <!-- Left: Logo + Search -->
   <div class="header-left">
-  <div class="logo">
+  <div class="logo" (click)="goToHomePage()">
     <div class="logo-icon bg-gradient-to-r from-blue-600 to-purple-600">W</div>
     <span class="logo-text">WeekOut</span>
   </div>
@@ -14,7 +14,7 @@
 
   <!-- Right: Buttons -->
   <div class="header-right">
-    <button class="btn-gradient">+ Create Plan</button>
+    <button class="btn-gradient" (click)="goToCreatePlanPage()">+ Create Plan</button>
     <button class="icon-btn">
       <i class="fas fa-bell"></i>
     </button>
@@ -31,7 +31,7 @@
 </section>
 
 <div class="welcome-buttons">
-  <button class="btn-gradient">+ Create Plan</button>
+  <button class="btn-gradient" (click)="goToCreatePlanPage()">+ Create Plan</button>
   <button class="btn-outline">
     <i class="fas fa-fire"></i> Trending
   </button>
@@ -184,7 +184,7 @@
           Join Plan
         </button>
         <div *ngIf="plan.joined" class="joined-actions">
-          <button class="btn-outline">
+          <button class="btn-outline-custom">
             <i class="fas fa-comments"></i> Chat
           </button>
           <button class="btn-gradient">Details</button>
@@ -207,7 +207,7 @@
           <span *ngFor="let tag of spot.tags" class="tag">{{ tag }}</span>
         </div>
         <p><i class="fas fa-star"></i> {{ spot.rating }} Star</p>
-        <button class="btn-gradient">Create Plan</button>
+        <button class="btn-gradient" (click)="goToCreatePlanPage()">Create Plan</button>
       </div>
     </div>
     <!-- Bottom Section -->

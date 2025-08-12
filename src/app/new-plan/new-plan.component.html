@@ -1,0 +1,115 @@
+<div class="new-plan">
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <button mat-icon-button class="back-btn" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon> Back
+    </button>
+    <div class="logo-icon bg-gradient-to-r from-blue-600 to-purple-600" (click)="goToHomePage()">W</div>
+    <h2>Create New Plan</h2>
+  </div>
+
+  <!-- Form Container -->
+  <div class="form-container">
+    <h3 class="form-title">Plan Details</h3>
+    <p class="form-subtitle">Create an amazing weekend experience for you and others</p>
+
+    <form [formGroup]="planForm">
+      <!-- Plan Title -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Plan Title</mat-label>
+        <input matInput formControlName="title" placeholder="Enter plan title">
+      </mat-form-field>
+
+      <!-- Plan Type & Max People -->
+      <div class="two-col">
+        <mat-form-field appearance="outline">
+          <mat-label>Plan Type</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let type of planTypes" [value]="type">{{type}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Max People</mat-label>
+          <mat-select formControlName="maxPeople">
+            <mat-option *ngFor="let people of maxPeopleOptions" [value]="people">{{people}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Date & Time -->
+      <div class="two-col">
+        <mat-form-field appearance="outline">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Time</mat-label>
+          <input matInput type="time" formControlName="time">
+          <mat-icon matSuffix>access_time</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Meetup Point -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Meetup Point</mat-label>
+        <input matInput formControlName="meetupPoint" placeholder="Enter meetup location">
+      </mat-form-field>
+
+      <!-- Description -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="3" formControlName="description" placeholder="Describe your plan"></textarea>
+      </mat-form-field>
+
+      <!-- Tags -->
+      <div class="tags-section">
+        <p class="tags-title">Tags</p>
+        <small style="color: gray;">Add tags to help others discover your plan</small>
+
+        <mat-chip-grid #chipList>
+          <mat-chip-row *ngFor="let tag of tags" [removable]="true" (removed)="removeTag(tag)">
+            {{tag}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip-row>
+        </mat-chip-grid>
+
+        <div class="tag-input-row">
+          <mat-form-field appearance="outline" style="width: 90%;">
+            <mat-label>Add Custom Tag</mat-label>
+            <input #tagInput matInput [matChipInputFor]="chipList" (matChipInputTokenEnd)="addTag($event)">
+          </mat-form-field>
+          <button mat-icon-button color="primary" (click)="addEmptyTag(tagInput)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+        <div class="suggested-tags">
+            <span>Suggested Tags :</span>
+            <div class="default-tags">
+                <span *ngFor="let st of suggestedTags" class="suggested-tag" (click)="addSuggestedTag(st)">
+                  + {{st}}
+                </span>
+            </div>
+        </div>
+      </div>
+
+      <!-- Plan Visibility -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Plan Visibility</mat-label>
+        <mat-select formControlName="visibility">
+          <mat-option *ngFor="let vis of visibilityOptions" [value]="vis">{{vis}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Buttons -->
+      <div class="btn-row">
+        <button mat-button class="cancel-btn" color="warn" type="button" (click)="cancel()">Cancel Plan</button>
+        <button mat-raised-button class="create-btn" color="primary" type="button" (click)="createPlan()">Create Plan</button>
+      </div>
+    </form>
+  </div>
+</div>
