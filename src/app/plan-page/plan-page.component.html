@@ -1,0 +1,128 @@
+<div class="plan-page">
+
+  <!-- Header -->
+  <header class="plan-header">
+    <div class="header-left" (click)="backToDashboard()">
+      <mat-icon class="back-icon">arrow_back</mat-icon>
+      <span class="back-text">Back to Dashboard</span>
+    </div>
+    <div class="header-right">
+      <mat-icon class="icon-btn">flag</mat-icon>
+      <mat-icon class="icon-btn">share</mat-icon>
+    </div>
+  </header>
+
+  <div class="plan-content">
+    <!-- LEFT SIDE -->
+    <div class="left-column">
+
+      <!-- Card 1 -->
+      <mat-card class="plan-card">
+        <div class="card-header">
+          <div class="plan-type chip-style">Trek</div>
+          <span class="status chip-style">Open</span>
+        </div>
+        <h3>Weekend Trek to Nandi Hills</h3>
+        <div class="info-row">
+          <mat-icon>event</mat-icon>
+          <span>Saturday, August 9, 2025</span>
+        </div>
+        <div class="info-row">
+          <mat-icon>schedule</mat-icon>
+          <span>6:00 AM</span>
+        </div>
+        <div class="info-row">
+          <mat-icon>place</mat-icon>
+          <span>Majestic Bus Station</span>
+        </div>
+        <h4 class="plan-about">About this plan</h4>
+        <div class="plan-description">
+            <p>
+              Early morning trek to catch the sunrise at Nandi Hills. 
+              Perfect for photography enthusiasts!
+            </p>
+        </div>
+        <div class="tags">
+          <span class="tag">Adventure</span>
+          <span class="tag">Photography</span>
+          <span class="tag">Nature</span>
+        </div>
+      </mat-card>
+
+      <!-- Card 2 -->
+      <mat-card class="plan-card">
+        <h4>Hosted by</h4>
+        <div class="host-info">
+          <div class="profile-circle">R</div>
+          <div>
+            <h5>Rahul Sharma</h5>
+            <p>Plans hosted: 12 • Rating: 4.8/5</p>
+          </div>
+        </div>
+        <button mat-button class="gradient-btn">View Profile</button>
+      </mat-card>
+
+      <!-- Card 3 -->
+      <mat-card class="plan-card">
+        <div class="attendee-header">
+          <h4>Attendees (5/8)</h4>
+          <div class="spots-left">
+            <mat-icon>people</mat-icon>
+            <span>3 spots left</span>
+          </div>
+        </div>
+        <ul class="attendees-list">
+          <li><div class="name-profile-circle">R</div> Rahul Sharma <span class="role">Host</span></li>
+          <li><div class="name-profile-circle">B</div> Member 2</li>
+          <li><div class="name-profile-circle">C</div> Member 3</li>
+          <li><div class="name-profile-circle">D</div> Member 4</li>
+          <li><div class="name-profile-circle">E</div> Member 5</li>
+          <li><mat-icon class="dotted-icon">radio_button_unchecked</mat-icon> Available spot</li>
+          <li><mat-icon class="dotted-icon">radio_button_unchecked</mat-icon> Available spot</li>
+        </ul>
+      </mat-card>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right-column">
+
+      <!-- Card 1 -->
+      <mat-card class="plan-card join-card">
+        <button mat-raised-button class="gradient-btn full-btn">Join this Plan</button>
+      </mat-card>
+
+      <!-- Card 2 -->
+      <mat-card class="plan-card">
+        <h4>Plan Details</h4>
+        <div class="detail-row">
+          <span>Visibility</span>
+          <span class="detail-value">Public</span>
+        </div>
+        <div class="detail-row">
+          <span>Created</span>
+          <span class="detail-value">2 days ago</span>
+        </div>
+        <div class="detail-row">
+          <span>Views</span>
+          <span class="detail-value">24</span>
+        </div>
+      </mat-card>
+
+      <!-- Card 3 -->
+      <mat-card class="plan-card">
+        <h4>Similar Plans</h4>
+        <div class="similar-item">
+          <p>Weekend Photography Walk</p>
+          <span>Tomorrow, 7:00 AM</span>
+        </div>
+        <div class="similar-item">
+          <p>Bangalore Food Trail</p>
+          <span>Sunday, 12:00 PM</span>
+        </div>
+        <button mat-button class="gradient-btn">View More</button>
+      </mat-card>
+
+    </div>
+  </div>
+</div>

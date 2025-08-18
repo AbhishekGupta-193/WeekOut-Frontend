@@ -146,4 +146,8 @@ ngOnInit() {
   goToHomePage(){
     this.router.navigate(['']);
   }
+  
+  goToPlanPage(){
+    this.router.navigate(['/plan']);
+  }
 }
