@@ -4,6 +4,7 @@ import { AuthComponent } from './auth/auth.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { NewPlanComponent } from './new-plan/new-plan.component';
 import { PlanPageComponent } from './plan-page/plan-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { PlanPageComponent } from './plan-page/plan-page.component';
     HomePageComponent,
     NewPlanComponent,
     PlanPageComponent,
+    ProfilePageComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
