@@ -5,6 +5,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { NewPlanComponent } from './new-plan/new-plan.component';
 import { PlanPageComponent } from './plan-page/plan-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { ToasterComponent } from './toaster/toaster.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +18,8 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     NewPlanComponent,
     PlanPageComponent,
     ProfilePageComponent,
+    ToasterComponent,
+    LoaderComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

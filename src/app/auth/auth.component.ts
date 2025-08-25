@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AuthService } from './auth.service';
+import { LoaderService } from '../loader/loader.service';
+import { ToasterService } from '../toaster/toaster.service';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -13,7 +16,9 @@ import {
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, 
+    ReactiveFormsModule,
+  ],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
@@ -40,7 +45,13 @@ export class AuthComponent {
   signupPasswordVisible = false;
   signupConfirmPasswordVisible = false;
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(
+    private router: Router, 
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private toaster: ToasterService,
+    private loader: LoaderService,
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -84,7 +95,25 @@ export class AuthComponent {
       return;
     }
     console.log('Login Data:', this.loginForm.value);
-    // Add login logic here
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+    const request = {
+      email: email,
+      password: password
+    }
+    this.loader.display(true);
+    this.authService.signIn(request).subscribe({
+      next:(res:any)=>{
+        this.loader.display(false);
+        this.router.navigate(['dashboard']);
+        this.toaster.success("Login Successful!");
+      },
+      error:(err:any)=>{
+        this.loader.display(false);
+        this.toaster.error("Login Failed. Please try again!");
+        console.log(err);
+      }
+    })
   }
 
   onSignupSubmit() {
@@ -114,7 +143,19 @@ export class AuthComponent {
     };
 
     console.log('Signup Data:', signupData);
-    // Add signup logic here
+    this.loader.display(true);
+    this.authService.signUp(signupData).subscribe({
+      next:(res:any)=>{
+        this.loader.display(false);
+        this.router.navigate(['dashboard']);
+        this.toaster.success("Singup Successful!");
+      },
+      error:(err:any)=>{
+        this.loader.display(false);
+        this.toaster.error("Singup Failed. Please try again!");
+        console.log(err);
+      }
+    })
   }
 
   // Custom validator: at least min required checkboxes selected
