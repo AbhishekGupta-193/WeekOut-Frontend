@@ -19,33 +19,30 @@
       <!-- Card 1 -->
       <mat-card class="plan-card">
         <div class="card-header">
-          <div class="plan-type chip-style">Trek</div>
+          <div class="plan-type chip-style">{{planPageData.type}}</div>
           <span class="status chip-style">Open</span>
         </div>
-        <h3>Weekend Trek to Nandi Hills</h3>
+        <h3>{{planPageData.title}}</h3>
         <div class="info-row">
           <mat-icon>event</mat-icon>
-          <span>Saturday, August 9, 2025</span>
+          <span>{{planPageData.date}}</span>
         </div>
         <div class="info-row">
           <mat-icon>schedule</mat-icon>
-          <span>6:00 AM</span>
+          <span>{{planPageData.time}}</span>
         </div>
         <div class="info-row">
           <mat-icon>place</mat-icon>
-          <span>Majestic Bus Station</span>
+          <span>{{planPageData.meetupPoint}}</span>
         </div>
         <h4 class="plan-about">About this plan</h4>
         <div class="plan-description">
             <p>
-              Early morning trek to catch the sunrise at Nandi Hills. 
-              Perfect for photography enthusiasts!
+              {{planPageData.description}}
             </p>
         </div>
         <div class="tags">
-          <span class="tag">Adventure</span>
-          <span class="tag">Photography</span>
-          <span class="tag">Nature</span>
+          <span class="tag" *ngFor="let tag of planPageData.tags">{{tag}}</span>
         </div>
       </mat-card>
 
@@ -55,7 +52,7 @@
         <div class="host-info">
           <div class="profile-circle">R</div>
           <div>
-            <h5>Rahul Sharma</h5>
+            <h5>Mr XYZ</h5>
             <p>Plans hosted: 12 • Rating: 4.8/5</p>
           </div>
         </div>
@@ -65,14 +62,14 @@
       <!-- Card 3 -->
       <mat-card class="plan-card">
         <div class="attendee-header">
-          <h4>Attendees (5/8)</h4>
+          <h4>Attendees {{planPageData.maxMembers}}</h4>
           <div class="spots-left">
             <mat-icon>people</mat-icon>
-            <span>3 spots left</span>
+            <span>? spots left</span>
           </div>
         </div>
         <ul class="attendees-list">
-          <li><div class="name-profile-circle">R</div> Rahul Sharma <span class="role">Host</span></li>
+          <li><div class="name-profile-circle">R</div> Mr XYZ <span class="role">Host</span></li>
           <li><div class="name-profile-circle">B</div> Member 2</li>
           <li><div class="name-profile-circle">C</div> Member 3</li>
           <li><div class="name-profile-circle">D</div> Member 4</li>
@@ -97,11 +94,11 @@
         <h4>Plan Details</h4>
         <div class="detail-row">
           <span>Visibility</span>
-          <span class="detail-value">Public</span>
+          <span class="detail-value">{{planPageData.visibility}}</span>
         </div>
         <div class="detail-row">
           <span>Created</span>
-          <span class="detail-value">2 days ago</span>
+          <span class="detail-value">{{getDays(planPageData.createdAt)}}</span>
         </div>
         <div class="detail-row">
           <span>Views</span>

@@ -12,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
+import { ApplicationService } from '../application.service';
 @Component({
   selector: 'app-profile-page',
   standalone: true,
@@ -30,9 +31,17 @@ import { Router } from '@angular/router';
 })
 export class ProfilePageComponent {
   constructor(
-  private router: Router
+  private router: Router,
+  private applicationService: ApplicationService,
 ) {}
+
 selectedTab: string = 'plans'; // default tab
+loggedInUser: any;
+userData = sessionStorage.getItem('loggedInUser');
+loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
+ngOnInit(){
+  this.loggedInUser = this.applicationService.loggedInUser || this.loggedInUserData;
+}
 
   plans = [
     { title: 'Weekend Trek to Nandi Hills', date: 'Sat, Aug 9, 2025' },
@@ -62,6 +71,11 @@ selectedTab: string = 'plans'; // default tab
     
   backToDashboard(){
       this.router.navigate(['/dashboard'])
+  }
+    
+  logout(){
+    sessionStorage.clear();
+    this.router.navigate([''])
   }
 
 }

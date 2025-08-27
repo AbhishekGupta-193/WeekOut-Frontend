@@ -105,7 +105,7 @@
     gap: 6px;
     font-size: 16px;
     border: 1px solid #d1cfcf;
-
+    cursor: pointer;
     }
     .stats-row {
       display: flex;
@@ -211,10 +211,10 @@
   outline: none;
 }
 
-  .header-right .icon-btn:hover {
-    background: linear-gradient(to right, #2563eb, #9333ea);
-    color: white;
-  }
+  // .header-right .icon-btn:hover {
+  //   background: linear-gradient(to right, #2563eb, #9333ea);
+  //   color: white;
+  // }
   .header-left:hover {
     background: linear-gradient(to right, #2563eb, #9333ea);
     color: white;

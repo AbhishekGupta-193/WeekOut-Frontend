@@ -5,6 +5,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { LoaderService } from '../loader/loader.service';
 import { ToasterService } from '../toaster/toaster.service';
+import { ApplicationService } from '../application.service';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -26,16 +27,26 @@ export class AuthComponent {
   isLoginMode = true;
 
   interestsList = [
-    'Trekking',
-    'Movies',
-    'Cycling',
-    'Photography',
-    'Cooking',
-    'Music',
-    'Travel',
-    'Gaming',
-    'Reading',
-    'Yoga',
+  'Travel', 
+  'Trek', 
+  'Cafe', 
+  'Adventure', 
+  'Hiking', 
+  'Music', 
+  'Movie', 
+  'Party', 
+  'Foodie', 
+  'Sports', 
+  'Shopping', 
+  'Picnic', 
+  'Road Trip', 
+  'Beach', 
+  'Camping', 
+  'Fitness', 
+  'Gaming', 
+  'Photography', 
+  'Art & Culture', 
+  'Relaxation'
   ];
 
   loginForm: FormGroup;
@@ -51,6 +62,7 @@ export class AuthComponent {
     private authService: AuthService,
     private toaster: ToasterService,
     private loader: LoaderService,
+    private applicationService: ApplicationService,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -105,8 +117,10 @@ export class AuthComponent {
     this.authService.signIn(request).subscribe({
       next:(res:any)=>{
         this.loader.display(false);
-        this.router.navigate(['dashboard']);
         this.toaster.success("Login Successful!");
+        this.applicationService.loggedInUser = res.user;
+        sessionStorage.setItem('loggedInUser',JSON.stringify(res.user))
+        this.router.navigate(['dashboard']);
       },
       error:(err:any)=>{
         this.loader.display(false);
@@ -136,7 +150,7 @@ export class AuthComponent {
       .filter((v: string | null) => v !== null);
 
     const signupData = {
-      fullName: this.signupForm.value.fullName,
+      name: this.signupForm.value.fullName,
       email: this.signupForm.value.email,
       password,
       interests: selectedInterests,
@@ -147,8 +161,10 @@ export class AuthComponent {
     this.authService.signUp(signupData).subscribe({
       next:(res:any)=>{
         this.loader.display(false);
-        this.router.navigate(['dashboard']);
         this.toaster.success("Singup Successful!");
+        this.applicationService.loggedInUser = res.user;
+        sessionStorage.setItem('loggedInUser',JSON.stringify(res.user))
+        this.router.navigate(['dashboard']);
       },
       error:(err:any)=>{
         this.loader.display(false);

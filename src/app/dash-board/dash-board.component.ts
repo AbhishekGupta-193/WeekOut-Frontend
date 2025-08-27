@@ -6,6 +6,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { ApplicationService } from '../application.service';
+import { PlanService } from '../new-plan/plan.service';
+import { AuthService } from '../auth/auth.service';
+import { LoaderService } from '../loader/loader.service';
+import { ToasterService } from '../toaster/toaster.service';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-dash-board',
   standalone: true,
@@ -15,25 +21,41 @@ import { Router } from '@angular/router';
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './dash-board.component.html',
   styleUrl: './dash-board.component.scss'
 })
 export class DashBoardComponent {
   constructor(
-    private router: Router
+    private router: Router,
+    private applicationService: ApplicationService,
+    private planService: PlanService,
+    private loader: LoaderService,
+    private toaster: ToasterService,
+    private authService: AuthService,
   ) {}
   
+  userName:any;
+  userInterests:any;
   // planTypes = new FormControl('');
   planTypes = new FormControl<string[]>([]);
-
+  
   planList: string[] = ['All Types', 'Trek', 'Entertainment', 'Nature', 'Cafe', 'Indoor', 'Party'];
-ngOnInit() {
+  userData = sessionStorage.getItem('loggedInUser');
+  loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
+  ngOnInit() {
+  this.userName = (this.applicationService.loggedInUser || this.loggedInUserData)?.name;
+  this.userInterests = (this.applicationService.loggedInUser || this.loggedInUserData)?.interests;
   this.planTypes.setValue(['All Types']); // default
+  // this.getAllPlansToExplore();
+  this.activeTab = 'explore'
 }
   activeTab: 'explore' | 'forYou' | 'nearby' = 'explore';
 
+  allPlansToExplore: any;
+  allPlansForYou: any;
   explorePlans = [
     {
       id: 1,
@@ -149,5 +171,66 @@ ngOnInit() {
   
   goToPlanPage(){
     this.router.navigate(['/plan']);
+  }
+
+  goToUserProfile(){
+    this.router.navigate(['/profile']);
+  }
+
+  getAllPlansToExplore() {
+    this.loader.display(true);
+    this.planService.getAllPlans().subscribe({
+      next:(res:any)=>{
+        this.loader.display(false);
+        this.allPlansToExplore = res;
+      },
+      error:(err:any)=>{
+        this.loader.display(false);
+        this.toaster.error("Unable to fetch Plans. Please refresh and try again!");
+        console.log(err);
+      }
+    })
+  }
+
+  getAllPlansForYou() {
+    const planTags = (this.applicationService.loggedInUser || this.loggedInUserData)?.interests;
+    this.loader.display(true);
+    this.planService.getPlansBasedOnUserInterest(planTags).subscribe({
+      next:(res:any)=>{
+        this.loader.display(false);
+        this.allPlansForYou = res;
+      },
+      error:(err:any)=>{
+        this.loader.display(false);
+        this.toaster.error("Unable to fetch User Specific Plans. Please try again!");
+        console.log(err);
+      }
+    })
+  }
+
+  getPlanHost(hostId:any){
+    let hostName = '';
+    this.authService.getUserById(hostId).subscribe({
+      next:(res:any)=>{
+        hostName = res.name;
+        return hostName;
+      },
+      error:(err:any)=>{
+        console.log(err);
+      }
+    })
+  }
+  
+  getPlanHostInitial(hostId:any){
+    let hostName = '';
+    this.authService.getUserById(hostId).subscribe({
+      next:(res:any)=>{
+        hostName = res.name;
+        return hostName[0];
+      },
+      error:(err:any)=>{
+        console.log(err);
+      }
+    })
   }
 }

@@ -11,7 +11,7 @@ export const routes: Routes = [
   { path: 'login', component: AuthComponent },  // Login page
   { path: 'dashboard', component: DashBoardComponent },  // Login page
   { path: 'create-plan', component: NewPlanComponent },  // create plan page
-  { path: 'plan', component: PlanPageComponent },  // plan page
+  { path: 'plan/:id', component: PlanPageComponent },  // plan page
   { path: 'profile', component: ProfilePageComponent },  // profile page
   { path: '**', redirectTo: '', pathMatch: 'full' } 
 ];

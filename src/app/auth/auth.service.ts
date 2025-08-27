@@ -22,5 +22,10 @@ export class AuthService {
     console.log("signUp API working");
     return this.http.post(this.applicationService.baseURL+'/auth/signup',credentials);
   }
+  
+  getUserById(id:any):Observable<any>{
+    console.log("getUserById API working");
+    return this.http.get(this.applicationService.baseURL+`/auth/get/${id}`);
+  }
 
 }

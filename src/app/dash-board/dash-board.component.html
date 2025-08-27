@@ -18,7 +18,7 @@
     <button class="icon-btn">
       <i class="fas fa-bell"></i>
     </button>
-    <button class="icon-btn">
+    <button class="icon-btn" (click)="goToUserProfile()">
       <i class="fas fa-user-circle"></i>
     </button>
   </div>
@@ -26,7 +26,7 @@
 
 <!-- Welcome Section -->
 <section class="welcome-section bg-gradient-custom">
-  <h1>Good morning, John! 👋</h1>
+  <h1>Good morning, {{userName}}! 👋</h1>
   <p>Ready to make this weekend awesome?</p>
 </section>
 
@@ -41,13 +41,13 @@
 <nav class="toggle-nav">
   <button
     [class.active]="activeTab === 'explore'"
-    (click)="setActiveTab('explore')"
+    (click)="setActiveTab('explore');getAllPlansToExplore()"
   >
     Explore Plans
   </button>
   <button
     [class.active]="activeTab === 'forYou'"
-    (click)="setActiveTab('forYou')"
+    (click)="setActiveTab('forYou');getAllPlansForYou()"
   >
     For You
   </button>
@@ -90,26 +90,28 @@
 <div class="content-section">
   <!-- EXPLORE PLANS -->
   <div class="active-content-section" *ngIf="activeTab === 'explore'">
-    <div class="plan-card" *ngFor="let plan of explorePlans">
+    <div class="plan-card" *ngFor="let plan of allPlansToExplore">
       <div class="plan-header">
         <i class="fas fa-mountain"></i>
         <h3>{{ plan.title }}</h3>
         <span class="tag">{{ plan.type }}</span>
       </div>
       <p style="margin-bottom: 2.5rem;"><i class="fas fa-calendar"></i> {{ plan.date }} at {{ plan.time }}</p>
-      <p><i class="fas fa-map-marker-alt"></i> {{ plan.location }}</p>
+      <p><i class="fas fa-map-marker-alt"></i> {{ plan.meetupPoint }}</p>
       <div class="tags">
         <span *ngFor="let tag of plan.tags" class="tag">{{ tag }}</span>
       </div>
       <div class="host">
         <div class="host-name">
-          <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">{{ plan.hostInitial }}</span>
+          <!-- <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">{{ plan.hostInitial }}</span> -->
+          <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">X</span>
           <div style="margin-top: 3px;">
-            {{ plan.host }} 
+            Mr XYZ
+            <!-- {{getPlanHost(plan.hostId)}} -->
           </div>
         </div>
         <div>
-          <i class="fas fa-users"></i> {{ plan.people }}
+          <i class="fas fa-users"></i> {{ plan.maxMembers }}
         </div>
       </div>
       <div class="plan-actions">
@@ -124,7 +126,7 @@
           <button class="btn-outline-custom">
             <i class="fas fa-comments"></i> Chat
           </button>
-          <button class="btn-gradient" (click)="goToPlanPage()">Details</button>
+          <button class="btn-gradient" [routerLink]="['/plan', plan.id]">Details</button>
         </div>
       </div>
     </div>
@@ -135,8 +137,7 @@
     <div>
       <h4>Based on Your Interests</h4>
       <div class="tags">
-        <span class="tag">Photography</span>
-        <span class="tag">Trek</span>
+        <span class="tag" *ngFor="let interest of userInterests">{{interest}}</span>
       </div>
     </div>
     <div class="for-you-description">
@@ -153,26 +154,26 @@
     </div>
     <!-- Show Explore Plans Below -->
   <div class="active-content-section">
-    <div class="plan-card" *ngFor="let plan of explorePlans">
+    <div class="plan-card" *ngFor="let plan of allPlansForYou">
       <div class="plan-header">
         <i class="fas fa-mountain"></i>
         <h3>{{ plan.title }}</h3>
         <span class="tag">{{ plan.type }}</span>
       </div>
       <p style="margin-bottom: 2.5rem;"><i class="fas fa-calendar"></i> {{ plan.date }} at {{ plan.time }}</p>
-      <p><i class="fas fa-map-marker-alt"></i> {{ plan.location }}</p>
+      <p><i class="fas fa-map-marker-alt"></i> {{ plan.meetupPoint }}</p>
       <div class="tags">
         <span *ngFor="let tag of plan.tags" class="tag">{{ tag }}</span>
       </div>
       <div class="host">
         <div class="host-name">
-          <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">{{ plan.hostInitial }}</span>
+          <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">X</span>
           <div style="margin-top: 3px;">
-            {{ plan.host }} 
+            Mr XYZ
           </div>
         </div>
         <div>
-          <i class="fas fa-users"></i> {{ plan.people }}
+          <i class="fas fa-users"></i> {{ plan.maxMembers }}
         </div>
       </div>
       <div class="plan-actions">
@@ -187,7 +188,7 @@
           <button class="btn-outline-custom">
             <i class="fas fa-comments"></i> Chat
           </button>
-          <button class="btn-gradient">Details</button>
+          <button class="btn-gradient" [routerLink]="['/plan', plan.id]">Details</button>
         </div>
       </div>
     </div>

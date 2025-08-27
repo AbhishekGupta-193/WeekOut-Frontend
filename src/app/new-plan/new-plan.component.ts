@@ -13,6 +13,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { PlanService } from './plan.service';
+import { ApplicationService } from '../application.service';
+import { LoaderService } from '../loader/loader.service';
+import { ToasterService } from '../toaster/toaster.service';
 
 @Component({
   selector: 'app-new-plan',
@@ -38,15 +42,60 @@ planForm!: FormGroup;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tags: string[] = [];
-  suggestedTags: string[] = ['Trek', 'Cafe', 'Adventure', 'Hiking', 'Music'];
+  suggestedTags: string[] = [  
+  'Travel', 
+  'Trek', 
+  'Cafe', 
+  'Adventure', 
+  'Hiking', 
+  'Music', 
+  'Movie', 
+  'Party', 
+  'Foodie', 
+  'Sports', 
+  'Shopping', 
+  'Picnic', 
+  'Road Trip', 
+  'Beach', 
+  'Camping', 
+  'Fitness', 
+  'Gaming', 
+  'Photography', 
+  'Art & Culture', 
+  'Relaxation'
+];
 
-  planTypes = ['Trek', 'Nature', 'Music', 'Cafe', 'Adventure'];
-  maxPeopleOptions = ['1 person', '2 people', '3 people', '4 people', '5+ people'];
-  visibilityOptions = ['Public', 'Private', 'Invite'];
-
+  planTypes = [
+  'Travel',
+  'Trek',
+  'Adventure',
+  'Nature',
+  'Music',
+  'Cafe',
+  'Food & Dining',
+  'Movie & Entertainment',
+  'Sports & Fitness',
+  'Road Trip',
+  'Camping',
+  'Beach & Picnic',
+  'Art & Culture',
+  'Gaming',
+  'Workshop & Learning',
+  'Party & Nightlife',
+  'Relaxation & Wellness'
+  ];
+  maxPeopleOptions = ['1 person', '2 people', '3 people', '4 people', '5 people', '6 people', '7 people', '8 people', '9 people', '10 people','11 people','12 people'];
+  visibilityOptions = ['PUBLIC', 'PRIVATE', 'INVITE_ONLY'];
+  loggedInUser: any;
+  userData = sessionStorage.getItem('loggedInUser');
+  loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private planService: PlanService,
+    private applicationService: ApplicationService,
+    private loader: LoaderService,
+    private toaster: ToasterService,
   ) {}
 
   ngOnInit(): void {
@@ -58,15 +107,18 @@ planForm!: FormGroup;
       time: ['', Validators.required],
       meetupPoint: ['', Validators.required],
       description: ['', Validators.required],
-      tags: [[]],
+      tags: [[],Validators.required],
       visibility: ['', Validators.required]
     });
+
+    this.loggedInUser = this.applicationService.loggedInUser || this.loggedInUserData;
   }
 
   addTag(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value && !this.tags.includes(value)) {
       this.tags.push(value);
+      this.planForm.get('tags')?.setValue(this.tags);
     }
     if (event.chipInput) {
       event.chipInput.clear();
@@ -78,6 +130,7 @@ addEmptyTag(input: HTMLInputElement): void {
 
   if (value && !this.tags.includes(value)) {
     this.tags.push(value);
+    this.planForm.get('tags')?.setValue(this.tags);
   }
 
   input.value = '';
@@ -87,19 +140,44 @@ addEmptyTag(input: HTMLInputElement): void {
     const index = this.tags.indexOf(tag);
     if (index >= 0) {
       this.tags.splice(index, 1);
+      this.planForm.get('tags')?.setValue(this.tags);
     }
   }
 
   addSuggestedTag(tag: string) {
     if (!this.tags.includes(tag)) {
       this.tags.push(tag);
+      this.planForm.get('tags')?.setValue(this.tags);
     }
   }
 
-  createPlan() {
-    if (this.planForm.valid) {
-      console.log('Plan Created:', { ...this.planForm.value, tags: this.tags });
-    }
+  onCreatePlanClick() {
+    const planData = {
+      hostId:this.loggedInUser?.id,
+      title: this.planForm.value.title,
+      type: this.planForm.value.type,
+      date: this.planForm.value.date?.toISOString().split("T")[0],
+      time: this.planForm.value.time + ':00',
+      meetupPoint: this.planForm.value.meetupPoint,
+      description: this.planForm.value.description,
+      tags: this.planForm.value.tags,
+      maxMembers: this.planForm.value.maxPeople.split(' ')[0],
+      visibility: this.planForm.value.visibility,
+      EntryMode: 'HOSTED'
+    };
+    this.loader.display(true);
+    this.planService.createPlan(planData).subscribe({
+      next:(res:any)=>{
+        this.loader.display(false);
+        this.toaster.success("Plan Created!");
+        this.router.navigate(['dashboard']);
+      },
+      error:(err:any)=>{
+        this.loader.display(false);
+        this.toaster.error("Plan Creation Failed. Please try again!");
+        console.log(err);
+      }
+    })
   }
 
   cancel() {

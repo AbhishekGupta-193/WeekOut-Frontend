@@ -1,12 +1,12 @@
 .new-plan {
-  padding: 1rem 20rem;
   background-color: oklch(.985 .002 247.839);
 
   .top-bar {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 10px;
+    border-bottom: 1px solid #d1cfcf;
+    padding: 0 20rem;
 
     .logo {
       height: 40px;
@@ -23,6 +23,8 @@
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #d1cfcf;
+    margin: 1rem 20rem;
 
     .form-title {
       font-size: 22px;
@@ -174,4 +176,9 @@
 
 ::ng-deep .mdc-notched-outline{
     height: 90% !important;
+}
+
+::ng-deep .mat-mdc-form-field-error {
+    margin-top: -8px;
+    margin-left: -16px;
 }

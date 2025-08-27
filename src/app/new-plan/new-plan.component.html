@@ -13,7 +13,7 @@
     <h3 class="form-title">Plan Details</h3>
     <p class="form-subtitle">Create an amazing weekend experience for you and others</p>
 
-    <form [formGroup]="planForm">
+    <form [formGroup]="planForm" (ngSubmit)="onCreatePlanClick()">
       <!-- Plan Title -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Plan Title</mat-label>
@@ -46,10 +46,13 @@
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="timeDiv">
           <mat-label>Time</mat-label>
-          <input matInput type="time" formControlName="time">
+          <input matInput type="time" formControlName="time" value="09:30">
           <mat-icon matSuffix>access_time</mat-icon>
+          <mat-error *ngIf="planForm.get('time')?.hasError('required')">
+             Enter the time format like 09:30 AM
+          </mat-error>
         </mat-form-field>
       </div>
 
@@ -70,7 +73,7 @@
         <p class="tags-title">Tags</p>
         <small style="color: gray;">Add tags to help others discover your plan</small>
 
-        <mat-chip-grid #chipList>
+        <mat-chip-grid #chipList formControlName="tags">
           <mat-chip-row *ngFor="let tag of tags" [removable]="true" (removed)="removeTag(tag)">
             {{tag}}
             <mat-icon matChipRemove>cancel</mat-icon>
@@ -82,7 +85,7 @@
             <mat-label>Add Custom Tag</mat-label>
             <input #tagInput matInput [matChipInputFor]="chipList" (matChipInputTokenEnd)="addTag($event)">
           </mat-form-field>
-          <button mat-icon-button color="primary" (click)="addEmptyTag(tagInput)">
+          <button mat-icon-button color="primary" type="button" (click)="addEmptyTag(tagInput)">
             <mat-icon>add</mat-icon>
           </button>
         </div>
@@ -90,7 +93,7 @@
         <div class="suggested-tags">
             <span>Suggested Tags :</span>
             <div class="default-tags">
-                <span *ngFor="let st of suggestedTags" class="suggested-tag" (click)="addSuggestedTag(st)">
+                <span *ngFor="let st of suggestedTags" class="suggested-tag" type="button" (click)="addSuggestedTag(st)">
                   + {{st}}
                 </span>
             </div>
@@ -108,7 +111,7 @@
       <!-- Buttons -->
       <div class="btn-row">
         <button mat-button class="cancel-btn" color="warn" type="button" (click)="cancel()">Cancel Plan</button>
-        <button mat-raised-button class="create-btn" color="primary" type="button" (click)="createPlan()">Create Plan</button>
+        <button mat-raised-button class="create-btn" color="primary" type="submit">Create Plan</button>
       </div>
     </form>
   </div>
