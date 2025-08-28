@@ -171,13 +171,14 @@
 
 
 .gradient-btn {
-  background: linear-gradient(to right, #667eea, #764ba2);
+  background:linear-gradient(to right, #2563eb, #9333ea);
   color: #fff !important;
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 0.5rem 1.2rem;
   font-weight: 600;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 .full-btn {
@@ -185,10 +186,6 @@
   cursor: pointer;
 }
 
-  .header-right .icon-btn:hover {
-    background: linear-gradient(to right, #2563eb, #9333ea);
-    color: white;
-  }
   .header-left:hover {
     background: linear-gradient(to right, #2563eb, #9333ea);
     color: white;
@@ -230,8 +227,17 @@
         border-radius: 6px;
     }
     .status{
+      display: flex;
+      gap: 10px;
+    }
+    .openStatus{
         background-color: #2563eb;
         color: white;
+    }
+    .deleteStatus{
+        background-color: #cb092d;
+        color: white;
+        cursor: pointer;
     }
  .plan-description{
     margin-top: -25px;

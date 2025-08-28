@@ -46,8 +46,11 @@ export class PlanPageComponent {
 
   planPageData:any;
   planId:any;
-
+  loggedInUser: any;
+  userData = sessionStorage.getItem('loggedInUser');
+  loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
   ngOnInit(){
+    this.loggedInUser = this.applicationService.loggedInUser || this.loggedInUserData;
     this.planId = this.route.snapshot.paramMap.get('id');
     this.getPlanPageDetails();  
   }
@@ -72,6 +75,69 @@ export class PlanPageComponent {
     })
   }
 
+  canJoin(plan: any, userId: string): boolean {
+  // Check host
+  if (plan.hostUser?.id === userId) {
+    return false;
+  }
+  // Check joined users
+  const alreadyJoined = plan.joinedUsers?.some((u: any) => u.id === userId);
+  if (alreadyJoined) {
+    return false;
+  }
+  return true;
+}
+
+  onPlanJoinClick() {
+    const planId = this.planId;
+    let userId = this.loggedInUser?.id;
+    this.loader.display(true);
+    if(this.canJoin(this.planPageData,userId)){
+      this.planService.joinPlan(planId,userId).subscribe({
+        next:(res:any)=>{
+          this.loader.display(false);
+          this.toaster.success("Plan joined successfully.");
+        },
+        error:(err:any)=>{
+          this.loader.display(false);
+          this.toaster.error("Failed to join plan. Please try again!");
+          console.log(err);
+        }
+      })
+    }else{
+      this.loader.display(false);
+      this.toaster.warning("You have already joined this plan.");
+    }
+  }
+
+  hasUserRightToDelete(){
+    let flag = false;
+    let planHostId = this.planPageData?.hostId;
+    let userId = this.loggedInUser?.id;
+    if(userId == planHostId)flag=true;
+    return flag;
+  }
+
+  onDeletePlanClick() {
+    const id = this.planId;
+    const confirmDelete = confirm("Are you sure you want to delete this plan?");
+    if (!confirmDelete) {
+      return; // abort if user clicks 'Cancel'
+    }
+    this.loader.display(true);
+    this.planService.deletePlan(id).subscribe({
+      next:(res:any)=>{
+        this.loader.display(false);
+        this.toaster.error("Plan deleted successfully.");
+      },
+      error:(err:any)=>{
+        this.loader.display(false);
+        this.toaster.error("Failed to delete Plan Data. Please try again!");
+        console.log(err);
+      }
+    })
+  }
+
   getDays(createdAt:any){
     const createdDate = new Date(createdAt);
     const today = new Date();
@@ -82,4 +148,9 @@ export class PlanPageComponent {
     return `${diffInDays} days ago`;
   }
 
+  getAvailableSpots(plan: any): any[] {
+    const taken = (plan.joinedUsers?.length || 0) + 1; // joined users + host
+    const available = plan.maxMembers - taken;
+    return Array(available > 0 ? available : 0); 
+  }
 }

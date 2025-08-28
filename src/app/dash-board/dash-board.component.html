@@ -104,9 +104,9 @@
       <div class="host">
         <div class="host-name">
           <!-- <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">{{ plan.hostInitial }}</span> -->
-          <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">X</span>
+          <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">{{plan.hostUser?.name[0] || 'X'}}</span>
           <div style="margin-top: 3px;">
-            Mr XYZ
+            {{plan.hostUser?.name || 'Mr XYZ'}}
             <!-- {{getPlanHost(plan.hostId)}} -->
           </div>
         </div>
@@ -120,7 +120,7 @@
           class="btn-gradient"
           (click)="joinPlan(plan)"
         >
-          Join Plan
+          Know more about Plan
         </button>
         <div *ngIf="plan.joined" class="joined-actions">
           <button class="btn-outline-custom">
@@ -167,9 +167,9 @@
       </div>
       <div class="host">
         <div class="host-name">
-          <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">X</span>
+          <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">{{plan.hostUser?.name[0] || 'X'}}</span>
           <div style="margin-top: 3px;">
-            Mr XYZ
+            {{plan.hostUser?.name || 'Mr XYZ'}}
           </div>
         </div>
         <div>

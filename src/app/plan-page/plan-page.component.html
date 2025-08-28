@@ -20,7 +20,10 @@
       <mat-card class="plan-card">
         <div class="card-header">
           <div class="plan-type chip-style">{{planPageData.type}}</div>
-          <span class="status chip-style">Open</span>
+          <div class="status">
+            <span class="deleteStatus chip-style" *ngIf="hasUserRightToDelete()" (click)="onDeletePlanClick()">Delete</span>
+            <span class="openStatus chip-style">Open</span>
+          </div>
         </div>
         <h3>{{planPageData.title}}</h3>
         <div class="info-row">
@@ -50,9 +53,9 @@
       <mat-card class="plan-card">
         <h4>Hosted by</h4>
         <div class="host-info">
-          <div class="profile-circle">R</div>
+          <div class="profile-circle">{{planPageData?.hostUser?.name[0] || 'X'}}</div>
           <div>
-            <h5>Mr XYZ</h5>
+            <h5>{{planPageData?.hostUser?.name || 'Mr XYZ'}}</h5>
             <p>Plans hosted: 12 • Rating: 4.8/5</p>
           </div>
         </div>
@@ -65,17 +68,17 @@
           <h4>Attendees {{planPageData.maxMembers}}</h4>
           <div class="spots-left">
             <mat-icon>people</mat-icon>
-            <span>? spots left</span>
+            <span>{{getAvailableSpots(planPageData).length}} spots left</span>
           </div>
         </div>
         <ul class="attendees-list">
-          <li><div class="name-profile-circle">R</div> Mr XYZ <span class="role">Host</span></li>
-          <li><div class="name-profile-circle">B</div> Member 2</li>
-          <li><div class="name-profile-circle">C</div> Member 3</li>
-          <li><div class="name-profile-circle">D</div> Member 4</li>
-          <li><div class="name-profile-circle">E</div> Member 5</li>
-          <li><mat-icon class="dotted-icon">radio_button_unchecked</mat-icon> Available spot</li>
-          <li><mat-icon class="dotted-icon">radio_button_unchecked</mat-icon> Available spot</li>
+          <li><div class="name-profile-circle">{{planPageData?.hostUser?.name[0] || 'X'}}</div> {{planPageData?.hostUser?.name || 'Mr XYZ'}} <span class="role">Host</span></li>
+          <li *ngFor="let joinedUser of planPageData?.joinedUsers">
+            <div class="name-profile-circle">{{joinedUser?.name[0] || 'X'}}</div> {{joinedUser?.name || 'Mr XYZ'}}
+          </li>
+          <li *ngFor="let spot of getAvailableSpots(planPageData)">
+            <mat-icon class="dotted-icon">radio_button_unchecked</mat-icon> Available spot
+          </li>
         </ul>
       </mat-card>
 
@@ -86,7 +89,7 @@
 
       <!-- Card 1 -->
       <mat-card class="plan-card join-card">
-        <button mat-raised-button class="gradient-btn full-btn">Join this Plan</button>
+        <button mat-raised-button class="gradient-btn full-btn" (click)="onPlanJoinClick()">Join this Plan</button>
       </mat-card>
 
       <!-- Card 2 -->

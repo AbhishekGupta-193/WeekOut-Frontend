@@ -12,9 +12,19 @@ export class PlanService {
     private applicationService:ApplicationService,
   ) { }
 
-  createPlan(request:any):Observable<any>{
+  createPlan(request:any,hostUserId:any):Observable<any>{
     console.log("createPlan API working");
-    return this.http.post(this.applicationService.baseURL+'/plans/create',request);
+    return this.http.post(this.applicationService.baseURL+`/plans/create/${hostUserId}`,request);
+  }
+
+  joinPlan(planId:any,userId:any):Observable<any>{
+    console.log("joinPlan API working");
+    return this.http.post(this.applicationService.baseURL+`/plans/${planId}/join/${userId}`,'');
+  }
+
+  deletePlan(planId:any):Observable<any>{
+    console.log("joinPlan API working");
+    return this.http.delete(this.applicationService.baseURL+`/plans/delete/${planId}`);
   }
 
   getAllPlans():Observable<any>{

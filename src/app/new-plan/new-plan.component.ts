@@ -165,8 +165,9 @@ addEmptyTag(input: HTMLInputElement): void {
       visibility: this.planForm.value.visibility,
       EntryMode: 'HOSTED'
     };
+    let hostUserId = this.loggedInUser?.id;
     this.loader.display(true);
-    this.planService.createPlan(planData).subscribe({
+    this.planService.createPlan(planData,hostUserId).subscribe({
       next:(res:any)=>{
         this.loader.display(false);
         this.toaster.success("Plan Created!");
