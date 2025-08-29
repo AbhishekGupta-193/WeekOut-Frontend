@@ -371,3 +371,40 @@
 ::ng-deep .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
     display: none;
 }
+
+    .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      margin: 1rem 0rem 1rem 0rem;
+      border: 1px solid #d1cfcf;
+      padding: 1rem;
+      border-radius: 10px;
+
+      &.error-border {
+        border: 1px solid red;
+        padding: 0.5rem;
+        border-radius: 4px;
+      }
+
+      .interest-checkbox {
+        flex: 1 1 20%;
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+
+        input {
+          margin-right: 0.5rem;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .After_Edit_btns button{
+      width: 48%;
+    }
+    .After_Edit_btns {
+      display: flex;
+      justify-content: space-between;
+    }

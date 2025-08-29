@@ -41,7 +41,28 @@ export class DashBoardComponent {
   userInterests:any;
   // planTypes = new FormControl('');
   planTypes = new FormControl<string[]>([]);
-  
+  interestsList = [
+  'Travel', 
+  'Trek', 
+  'Cafe', 
+  'Adventure', 
+  'Hiking', 
+  'Music', 
+  'Movie', 
+  'Party', 
+  'Foodie', 
+  'Sports', 
+  'Shopping', 
+  'Picnic', 
+  'Road Trip', 
+  'Beach', 
+  'Camping', 
+  'Fitness', 
+  'Gaming', 
+  'Photography', 
+  'Art & Culture', 
+  'Relaxation'
+  ];
   planList: string[] = ['All Types', 'Trek', 'Entertainment', 'Nature', 'Cafe', 'Indoor', 'Party'];
   userData = sessionStorage.getItem('loggedInUser');
   loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
@@ -232,5 +253,16 @@ export class DashBoardComponent {
         console.log(err);
       }
     })
+  }
+
+  updateInsterestClicked = false;
+  onUpdateInterestsClick(){
+    this.updateInsterestClicked = true;
+  }
+  onCancelChanges(){
+    this.updateInsterestClicked = false;
+  }
+  onSaveChanges(){
+    //api call
   }
 }

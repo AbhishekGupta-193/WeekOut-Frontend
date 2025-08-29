@@ -139,6 +139,12 @@
       <div class="tags">
         <span class="tag" *ngFor="let interest of userInterests">{{interest}}</span>
       </div>
+        <div *ngIf="updateInsterestClicked" class="interests">
+            <label *ngFor="let interest of interestsList; let i = index" class="interest-checkbox">
+                <input type="checkbox" />
+                {{ interest }}
+            </label>
+        </div>
     </div>
     <div class="for-you-description">
       <i class="fas fa-map fa-3x faded"></i>
@@ -150,7 +156,11 @@
           Join more plans or update your interests to get better recommendations.
         </p>
       </div>
-      <button>Update Interests</button>
+      <button *ngIf="!updateInsterestClicked" (click)="onUpdateInterestsClick()">Update Interests</button>
+      <div *ngIf="updateInsterestClicked" class="After_Edit_btns">
+        <button (click)="onCancelChanges()">Cancel Changes</button>
+        <button (click)="onSaveChanges()" style="color: white;background: linear-gradient(to right, #2563eb, #9333ea);">Save Changes</button>
+      </div>
     </div>
     <!-- Show Explore Plans Below -->
   <div class="active-content-section">

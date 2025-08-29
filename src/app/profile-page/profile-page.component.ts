@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -13,6 +13,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { ApplicationService } from '../application.service';
+import {ChangeDetectionStrategy, inject} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 @Component({
   selector: 'app-profile-page',
   standalone: true,
@@ -25,23 +28,81 @@ import { ApplicationService } from '../application.service';
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss'
 })
 export class ProfilePageComponent {
-  constructor(
+  interestsList = [
+    'Travel', 
+    'Trek', 
+    'Cafe', 
+    'Adventure', 
+    'Hiking', 
+    'Music', 
+    'Movie', 
+    'Party', 
+    'Foodie', 
+    'Sports', 
+    'Shopping', 
+    'Picnic', 
+    'Road Trip', 
+    'Beach', 
+    'Camping', 
+    'Fitness', 
+    'Gaming', 
+    'Photography', 
+    'Art & Culture', 
+    'Relaxation'
+  ];
+  profileForm: FormGroup;
+
+constructor(
   private router: Router,
   private applicationService: ApplicationService,
-) {}
+  private fb: FormBuilder,
+  private cdr: ChangeDetectorRef,
+) {
+    this.profileForm = this.fb.group({
+      fullName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      interests: this.fb.array(
+        this.interestsList.map(() => this.fb.control(false)),
+        this.minSelectedCheckboxes(1)
+      ),
+    });
+}
 
 selectedTab: string = 'plans'; // default tab
 loggedInUser: any;
 userData = sessionStorage.getItem('loggedInUser');
 loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
+
 ngOnInit(){
   this.loggedInUser = this.applicationService.loggedInUser || this.loggedInUserData;
 }
+
+  // Custom validator: at least min required checkboxes selected
+  minSelectedCheckboxes(min = 1): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!(control instanceof FormArray)) {
+        // If control is not a FormArray, we can't validate, so return null
+        return null;
+      }
+      const totalSelected = control.controls
+        .map(ctrl => ctrl.value)
+        .reduce((prev, next) => (next ? prev + 1 : prev), 0);
+
+      return totalSelected >= min ? null : { required: true };
+    };
+  }
+
+  get signupInterestsControls() {
+    return (this.profileForm.get('interests') as FormArray).controls;
+  }
+  
 
   plans = [
     { title: 'Weekend Trek to Nandi Hills', date: 'Sat, Aug 9, 2025' },
@@ -75,7 +136,20 @@ ngOnInit(){
     },
   ];
 
-    
+  readonly dialog = inject(MatDialog);
+
+  openDialog(templateRef: any) {
+    const dialogRef = this.dialog.open(templateRef,{
+      height:'600px',
+      width:'500px',
+      panelClass: 'profile-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   backToDashboard(){
       this.router.navigate(['/dashboard'])
   }
@@ -85,4 +159,7 @@ ngOnInit(){
     this.router.navigate([''])
   }
 
+  onSignupSubmit(){
+
+  }
 }
