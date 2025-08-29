@@ -65,32 +65,43 @@
     <div *ngIf="selectedTab === 'plans'">
       <h3>Plans I've Hosted ({{plans.length}})</h3>
       <mat-card *ngFor="let plan of plans" class="plan-card">
-        <h4>{{plan.title}}</h4>
-        <p>{{plan.date}}</p>
+        <div>
+          <h4>{{plan.title}}</h4>
+          <p><i class="fas fa-calendar"></i>{{plan.date}}</p>
+        </div>
+        <div>
+            <span class="stars">
+              <mat-icon *ngFor="let s of [].constructor(5)" class="star">star</mat-icon>
+            </span>
+        </div>
       </mat-card>
     </div>
 
     <!-- Badges -->
     <div *ngIf="selectedTab === 'badges'">
       <h3>Achievement Badges</h3>
-      <mat-card *ngFor="let badge of badges" class="badge-card">
-        <mat-icon>{{badge.icon}}</mat-icon>
-        <div>
-          <h4>{{badge.title}}</h4>
-          <p>{{badge.desc}}</p>
-        </div>
-      </mat-card>
+      <div class="badges_container">
+        <mat-card *ngFor="let badge of badges" class="badge-card">
+          <mat-icon>{{badge.icon}}</mat-icon>
+          <div class="badge_about">
+            <h4>{{badge.title}}</h4>
+            <p>{{badge.desc}}</p>
+          </div>
+        </mat-card>
+      </div>
     </div>
 
     <!-- Interests -->
-    <div *ngIf="selectedTab === 'interests'">
+    <div *ngIf="selectedTab === 'interests'" class="interests_container">
       <h3>My Interests</h3>
-      <div class="interests">
-        <span *ngFor="let interest of interests" class="interest-box">{{interest}}</span>
+      <div class="contents">
+        <div class="interests">
+          <span *ngFor="let interest of interests" class="interest-box">{{interest}}</span>
+        </div>
+        <button mat-raised-button color="primary" class="editInterestsBtn">
+          <mat-icon>edit</mat-icon> Edit Interests
+        </button>
       </div>
-      <button mat-raised-button color="primary">
-        <mat-icon>edit</mat-icon> Edit Interests
-      </button>
     </div>
 
     <!-- Reviews -->

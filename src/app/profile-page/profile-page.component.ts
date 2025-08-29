@@ -65,7 +65,14 @@ ngOnInit(){
       stars: 5,
       review: 'Great host! The brunch plan was perfectly organized and everyone had a wonderful time.',
       timeAgo: '3 days ago'
-    }
+    },
+    {
+      name: 'John Doe',
+      initial: 'J',
+      stars: 4,
+      review: 'Cannot be more perfect then this!',
+      timeAgo: '7 days ago'
+    },
   ];
 
     
