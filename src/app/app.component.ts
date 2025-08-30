@@ -7,6 +7,7 @@ import { PlanPageComponent } from './plan-page/plan-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { LoaderComponent } from './loader/loader.component';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ import { LoaderComponent } from './loader/loader.component';
     ProfilePageComponent,
     ToasterComponent,
     LoaderComponent,
+    ChatPageComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

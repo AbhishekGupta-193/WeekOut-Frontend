@@ -1,0 +1,150 @@
+<div class="chat-window">
+    <header class="chat-header">
+        <div class="header-left" (click)="onBackClick()">
+            <mat-icon class="back-icon">arrow_back</mat-icon>
+            <span class="back-text">Back</span>
+        </div>
+        <div class="chat-subheader">
+            <div class="plan-title">
+                <span style="font-size: 18px; font-weight: 600;">{{planPageData?.title}}</span>
+                <span style="font-size: 12px; color: #423d3d;">{{planPageData?.joinedUsers?.length+1}} Members</span>
+            </div>
+            <div class="icons-row"></div>
+            <!-- Phone Icon -->
+            <button mat-icon-button>
+                <mat-icon>call</mat-icon>
+            </button>
+
+            <!-- Video Call Icon -->
+            <button mat-icon-button>
+                <mat-icon>videocam</mat-icon>
+            </button>
+
+            <!-- More (Three Dots Vertical) Icon -->
+            <button mat-icon-button>
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </div>
+    </header>
+    <div class="body" style="background-color: oklch(.985 .002 247.839);padding-bottom: 2rem;">
+        <div class="chat-container">
+            <div class="chat-container-left">
+                <div class="plan-brief-container">
+                    <div class="plan-brief">
+                        <!-- Left Icon -->
+                        <div class="icon">
+                            <mat-icon>event</mat-icon>
+                            <!-- Bag icon -->
+                        </div>
+    
+                        <!-- Right Content -->
+                        <div class="details">
+                            <h3 class="title">{{planPageData?.title}}</h3>
+    
+                            <div class="about-plan">
+                                <div class="infos">
+                                    <div class="info">
+                                        <mat-icon class="small-icon">event</mat-icon>
+                                        <span>{{planPageData?.date}} at {{planPageData?.time}}</span>
+                                    </div>
+    
+                                    <div class="info">
+                                        <mat-icon class="small-icon">location_on</mat-icon>
+                                        <span>{{planPageData?.meetupPoint}}</span>
+                                    </div>
+                                </div>
+    
+                                <div class="tag">
+                                    <span>
+                                        {{planPageData?.type}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-section">
+                    <!-- Messages Container -->
+                    <div class="messages">
+                        <div *ngFor="let m of messages" [ngClass]="{'my-message': m?.senderId === loggedInUser?.id, 'other-message': m?.senderId != loggedInUser?.id}">
+                            <!-- Avatar + Message (for others only) -->
+                            <div class="message-content">
+                                <div class="avatar" *ngIf="m?.senderId != loggedInUser?.id">
+                                    {{m.senderName.charAt(0)}}
+                                </div>
+                                <div class="bubble">
+                                    <div class="sender" *ngIf="m?.senderId != loggedInUser?.id">{{m.senderName}}</div>
+                                    <div class="sender" *ngIf="m?.senderId == loggedInUser?.id">You</div>
+                                    <div class="text">{{m.content}}</div>
+                                    <div class="time">{{m.timestamp | date:'shortTime'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Input Area -->
+                    <form (ngSubmit)="send()" class="chat-input">
+                        <button type="button" class="icon-btn">
+                            <mat-icon>attach_file</mat-icon>
+                        </button>
+                        <button type="button" class="icon-btn">
+                            <mat-icon>photo_library</mat-icon>
+                        </button>
+    
+                        <div class="input-wrapper">
+                            <input [(ngModel)]="text" name="message" placeholder="Type a message..." required />
+                        </div>
+    
+                        <button type="submit" class="send-btn">
+                            <mat-icon>send</mat-icon>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="chat-container-right">
+                <!-- Members Section -->
+                <div class="members-section">
+                    <h3>
+                        <mat-icon>groups</mat-icon>
+                        Members ({{planPageData?.joinedUsers?.length+1}})
+                    </h3>
+    
+                    <div class="member" *ngFor="let joinedUser of planPageData?.joinedUsers">
+                        <div class="avatar">{{joinedUser?.name[0]}}</div>
+                        <span class="name">{{joinedUser.name}}</span>
+                    </div>
+    
+                    <!-- <div class="member">
+                        <div class="avatar">A</div>
+                        <span class="name">Arjun Mehta</span>
+                    </div> -->
+    
+                    <div class="member">
+                        <div class="avatar you">{{planPageData?.hostUser?.name[0]}}</div>
+                        <span class="name">You</span>
+                    </div>
+                </div>
+    
+                <!-- Quick Actions Section -->
+                <div class="actions-section">
+                    <h3>Quick Actions</h3>
+    
+                    <button class="action-btn">
+                        <mat-icon>location_on</mat-icon>
+                        Share Location
+                    </button>
+    
+                    <button class="action-btn">
+                        <mat-icon>event</mat-icon>
+                        Suggest Time
+                    </button>
+    
+                    <button class="action-btn">
+                        <mat-icon>photo_library</mat-icon>
+                        Share Photos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

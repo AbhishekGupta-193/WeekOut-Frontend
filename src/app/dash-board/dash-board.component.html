@@ -96,8 +96,10 @@
         <h3>{{ plan.title }}</h3>
         <span class="tag">{{ plan.type }}</span>
       </div>
-      <p style="margin-bottom: 2.5rem;"><i class="fas fa-calendar"></i> {{ plan.date }} at {{ plan.time }}</p>
-      <p><i class="fas fa-map-marker-alt"></i> {{ plan.meetupPoint }}</p>
+      <div class="">
+        <p><i class="fas fa-calendar"></i> {{ plan.date }} at {{ plan.time }}</p>
+        <p><i class="fas fa-map-marker-alt"></i> {{ plan.meetupPoint }}</p>
+      </div>
       <div class="tags">
         <span *ngFor="let tag of plan.tags" class="tag">{{ tag }}</span>
       </div>
@@ -123,7 +125,7 @@
           Know more about Plan
         </button>
         <div *ngIf="plan.joined" class="joined-actions">
-          <button class="btn-outline-custom">
+          <button class="btn-outline-custom" [routerLink]="['/chat', plan.id]">
             <i class="fas fa-comments"></i> Chat
           </button>
           <button class="btn-gradient" [routerLink]="['/plan', plan.id]">Details</button>
@@ -170,8 +172,10 @@
         <h3>{{ plan.title }}</h3>
         <span class="tag">{{ plan.type }}</span>
       </div>
-      <p style="margin-bottom: 2.5rem;"><i class="fas fa-calendar"></i> {{ plan.date }} at {{ plan.time }}</p>
-      <p><i class="fas fa-map-marker-alt"></i> {{ plan.meetupPoint }}</p>
+      <div class="">
+        <p><i class="fas fa-calendar"></i> {{ plan.date }} at {{ plan.time }}</p>
+        <p><i class="fas fa-map-marker-alt"></i> {{ plan.meetupPoint }}</p>
+      </div>
       <div class="tags">
         <span *ngFor="let tag of plan.tags" class="tag">{{ tag }}</span>
       </div>
@@ -192,10 +196,10 @@
           class="btn-gradient"
           (click)="joinPlan(plan)"
         >
-          Join Plan
+          Know more about Plan
         </button>
         <div *ngIf="plan.joined" class="joined-actions">
-          <button class="btn-outline-custom">
+          <button class="btn-outline-custom" [routerLink]="['/chat', plan.id]">
             <i class="fas fa-comments"></i> Chat
           </button>
           <button class="btn-gradient" [routerLink]="['/plan', plan.id]">Details</button>

@@ -15,5 +15,9 @@
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    window.global = window;
+    window.process = { env: {} };
+  </script>
 </body>
 </html>

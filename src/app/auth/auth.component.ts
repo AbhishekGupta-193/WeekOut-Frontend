@@ -119,6 +119,7 @@ export class AuthComponent {
         this.loader.display(false);
         this.toaster.success("Login Successful!");
         this.applicationService.loggedInUser = res.user;
+        sessionStorage.clear()
         sessionStorage.setItem('loggedInUser',JSON.stringify(res.user))
         this.router.navigate(['dashboard']);
       },
@@ -163,6 +164,7 @@ export class AuthComponent {
         this.loader.display(false);
         this.toaster.success("Singup Successful!");
         this.applicationService.loggedInUser = res.user;
+        sessionStorage.clear();
         sessionStorage.setItem('loggedInUser',JSON.stringify(res.user))
         this.router.navigate(['dashboard']);
       },
