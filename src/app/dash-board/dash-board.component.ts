@@ -12,6 +12,7 @@ import { AuthService } from '../auth/auth.service';
 import { LoaderService } from '../loader/loader.service';
 import { ToasterService } from '../toaster/toaster.service';
 import { RouterModule } from '@angular/router';
+import { SearchFilterPipe } from '../pipes/search-filter.pipe';
 @Component({
   selector: 'app-dash-board',
   standalone: true,
@@ -22,7 +23,8 @@ import { RouterModule } from '@angular/router';
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    SearchFilterPipe
   ],
   templateUrl: './dash-board.component.html',
   styleUrl: './dash-board.component.scss'
@@ -41,6 +43,7 @@ export class DashBoardComponent {
   loggedUserId:any;
   userInterests:any;
   updatedInterests:any;
+  searchText: string = '';
   // planTypes = new FormControl('');
   planTypes = new FormControl<string[]>([]);
   interestsList = [
@@ -65,7 +68,27 @@ export class DashBoardComponent {
   'Art & Culture', 
   'Relaxation'
   ];
-  planList: string[] = ['All Types', 'Trek', 'Entertainment', 'Nature', 'Cafe', 'Indoor', 'Party'];
+  planList: string[] = [
+  'All Types',
+  'Travel',
+  'Trek',
+  'Adventure',
+  'Nature',
+  'Music',
+  'Cafe',
+  'Food & Dining',
+  'Movie & Entertainment',
+  'Sports & Fitness',
+  'Road Trip',
+  'Camping',
+  'Beach & Picnic',
+  'Art & Culture',
+  'Gaming',
+  'Workshop & Learning',
+  'Party & Nightlife',
+  'Relaxation & Wellness'
+  ];
+
   userData = sessionStorage.getItem('loggedInUser');
   loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
   

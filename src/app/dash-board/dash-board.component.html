@@ -6,10 +6,10 @@
     <div class="logo-icon bg-gradient-to-r from-blue-600 to-purple-600">W</div>
     <span class="logo-text">WeekOut</span>
   </div>
-    <div class="search-wrapper">
+    <!-- <div class="search-wrapper">
         <i class="fas fa-search"></i>
-        <input type="text" placeholder="Search Plans..." class="search-bar" />
-    </div>
+        <input type="text" [(ngModel)]="searchText" placeholder="Search Plans..." class="search-bar" />
+    </div> -->
   </div>
 
   <!-- Right: Buttons -->
@@ -63,7 +63,7 @@
 <div class="search-filter-bar">
   <div class="search-wrapper2">
     <i class="fas fa-search"></i>
-    <input type="text" placeholder="Search Plans..." class="search-bar2" />
+    <input type="text" [(ngModel)]="searchText" placeholder="Search Plans..." class="search-bar2" />
   </div>
 
  <mat-form-field>
@@ -90,7 +90,7 @@
 <div class="content-section">
   <!-- EXPLORE PLANS -->
   <div class="active-content-section" *ngIf="activeTab === 'explore'">
-    <div class="plan-card" *ngFor="let plan of allPlansToExplore">
+    <div class="plan-card" *ngFor="let plan of allPlansToExplore | searchFilter:searchText:planTypes.value">
       <div class="plan-header">
         <i class="fas fa-mountain"></i>
         <h3>{{ plan.title }}</h3>
@@ -171,7 +171,7 @@
     </div>
     <!-- Show Explore Plans Below -->
   <div class="active-content-section">
-    <div class="plan-card" *ngFor="let plan of allPlansForYou">
+    <div class="plan-card" *ngFor="let plan of allPlansForYou | searchFilter:searchText:planTypes.value">
       <div class="plan-header">
         <i class="fas fa-mountain"></i>
         <h3>{{ plan.title }}</h3>
@@ -217,7 +217,7 @@
   <!-- NEARBY SPOTS -->
   <div *ngIf="activeTab === 'nearby'">
     <div class="active-content-section">
-      <div class="spot-card" *ngFor="let spot of nearbySpots">
+      <div class="spot-card" *ngFor="let spot of nearbySpots | searchFilter:searchText:planTypes.value">
         <div class="spot-header">
           <i class="fas fa-tree"></i>
           <h3>{{ spot.name }}</h3>
