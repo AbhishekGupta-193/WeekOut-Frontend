@@ -27,5 +27,10 @@ export class AuthService {
     console.log("getUserById API working");
     return this.http.get(this.applicationService.baseURL+`/auth/get/${id}`);
   }
+  
+  updateUserById(id:any,request:any):Observable<any>{
+    console.log("updateUserById API working");
+    return this.http.put(this.applicationService.baseURL+`/auth/update/${id}`,request);
+  }
 
 }

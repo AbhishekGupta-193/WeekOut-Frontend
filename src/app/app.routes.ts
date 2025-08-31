@@ -15,6 +15,7 @@ export const routes: Routes = [
   { path: 'create-plan', component: NewPlanComponent },  // create plan page
   { path: 'plan/:id', component: PlanPageComponent },  // plan page
   { path: 'profile', component: ProfilePageComponent },  // profile page
+  { path: 'profile/:id', component: ProfilePageComponent },  // profile page with id
   { path: 'chat/:id', component: ChatPageComponent },  // plan page
   { path: '**', redirectTo: '', pathMatch: 'full' } 
 ];

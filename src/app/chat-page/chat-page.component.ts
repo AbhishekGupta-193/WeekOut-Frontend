@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { ChatService } from './chat.service';
 import { ChatMessageDTO } from './chat.service';
 import { ApplicationService } from '../application.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { LoaderService } from '../loader/loader.service';
 import { PlanService } from '../new-plan/plan.service';
@@ -15,7 +15,7 @@ import { ToasterService } from '../toaster/toaster.service';
 @Component({
   selector: 'app-chat-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule,MatIconModule],
+  imports: [CommonModule, FormsModule, HttpClientModule,MatIconModule,RouterModule],
   templateUrl: './chat-page.component.html',
   styleUrl: './chat-page.component.scss'
 })

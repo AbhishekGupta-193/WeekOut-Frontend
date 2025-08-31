@@ -59,7 +59,7 @@
             <p>Plans hosted: 12 • Rating: 4.8/5</p>
           </div>
         </div>
-        <button mat-button class="gradient-btn">View Profile</button>
+        <button mat-button class="gradient-btn" [routerLink]="['/profile', planPageData?.hostUser?.id]">View Profile</button>
       </mat-card>
 
       <!-- Card 3 -->
@@ -72,8 +72,8 @@
           </div>
         </div>
         <ul class="attendees-list">
-          <li><div class="name-profile-circle">{{planPageData?.hostUser?.name[0] || 'X'}}</div> {{planPageData?.hostUser?.name || 'Mr XYZ'}} <span class="role">Host</span></li>
-          <li *ngFor="let joinedUser of planPageData?.joinedUsers">
+          <li [routerLink]="['/profile', planPageData?.hostUser?.id]"><div class="name-profile-circle">{{planPageData?.hostUser?.name[0] || 'X'}}</div> {{planPageData?.hostUser?.name || 'Mr XYZ'}} <span class="role">Host</span></li>
+          <li *ngFor="let joinedUser of planPageData?.joinedUsers" [routerLink]="['/profile', joinedUser?.id]">
             <div class="name-profile-circle">{{joinedUser?.name[0] || 'X'}}</div> {{joinedUser?.name || 'Mr XYZ'}}
           </li>
           <li *ngFor="let spot of getAvailableSpots(planPageData)">

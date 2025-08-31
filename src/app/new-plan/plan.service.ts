@@ -36,6 +36,11 @@ export class PlanService {
     console.log("getPlanById API working");
     return this.http.get(this.applicationService.baseURL+`/plans/get/${id}`);
   }
+
+  updatePlanById(request:any,id:string):Observable<any>{
+    console.log("updatePlanById API working");
+    return this.http.put(this.applicationService.baseURL+`/plans/update/${id}`,request);
+  }
   
   getPlansBasedOnUserInterest(tags: string[]):Observable<any>{
     console.log("getPlansBasedOnInterest API working");

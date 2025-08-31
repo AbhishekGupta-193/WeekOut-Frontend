@@ -11,11 +11,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApplicationService } from '../application.service';
 import {ChangeDetectionStrategy, inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { AuthService } from '../auth/auth.service';
+import { ToasterService } from '../toaster/toaster.service';
 @Component({
   selector: 'app-profile-page',
   standalone: true,
@@ -30,6 +32,7 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
     FormsModule,
     MatDialogModule,
     MatButtonModule,
+    RouterModule
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss'
@@ -64,6 +67,9 @@ constructor(
   private applicationService: ApplicationService,
   private fb: FormBuilder,
   private cdr: ChangeDetectorRef,
+  private route: ActivatedRoute,
+  private authService: AuthService,
+  private toaster: ToasterService,
 ) {
     this.profileForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -77,11 +83,14 @@ constructor(
 
 selectedTab: string = 'plans'; // default tab
 loggedInUser: any;
+profileId: any;
 userData = sessionStorage.getItem('loggedInUser');
 loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
 
 ngOnInit(){
   this.loggedInUser = this.applicationService.loggedInUser || this.loggedInUserData;
+  this.profileId = this.route.snapshot.paramMap.get('id');
+  this.onLandingToProfile();
 }
 
   // Custom validator: at least min required checkboxes selected
@@ -161,5 +170,21 @@ ngOnInit(){
 
   onSignupSubmit(){
 
+  }
+
+  profileData:any;
+  onLandingToProfile(){
+    if(this.profileId == null){
+      this.toaster.error('Failed to fetch Profile Id.')
+      return;
+    }
+    this.authService.getUserById(this.profileId).subscribe({
+      next:(res:any)=>{
+        this.profileData = res;
+      },
+      error:(err:any)=>{
+        this.toaster.error('Failed to fetch Profile Data.Please try again!')
+      }
+    })
   }
 }

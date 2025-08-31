@@ -38,7 +38,9 @@ export class DashBoardComponent {
   ) {}
   
   userName:any;
+  loggedUserId:any;
   userInterests:any;
+  updatedInterests:any;
   // planTypes = new FormControl('');
   planTypes = new FormControl<string[]>([]);
   interestsList = [
@@ -66,11 +68,14 @@ export class DashBoardComponent {
   planList: string[] = ['All Types', 'Trek', 'Entertainment', 'Nature', 'Cafe', 'Indoor', 'Party'];
   userData = sessionStorage.getItem('loggedInUser');
   loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
+  
   ngOnInit() {
   this.userName = (this.applicationService.loggedInUser || this.loggedInUserData)?.name;
+  this.loggedUserId = (this.applicationService.loggedInUser || this.loggedInUserData)?.id;
   this.userInterests = (this.applicationService.loggedInUser || this.loggedInUserData)?.interests;
+  this.updatedInterests = [...this.userInterests];
   this.planTypes.setValue(['All Types']); // default
-  // this.getAllPlansToExplore();
+  this.getAllPlansToExplore();
   this.activeTab = 'explore'
 }
   activeTab: 'explore' | 'forYou' | 'nearby' = 'explore';
@@ -263,6 +268,42 @@ export class DashBoardComponent {
     this.updateInsterestClicked = false;
   }
   onSaveChanges(){
-    //api call
+    let loggedUser = (this.applicationService.loggedInUser || this.loggedInUserData)
+    let request={
+      name : loggedUser?.name,
+      email : loggedUser?.email,
+      phoneNumber : loggedUser?.phoneNumber,
+      profilePictureUrl : loggedUser?.profilePictureUrl,
+      bio : loggedUser?.bio,
+      interests : this.updatedInterests,
+    };
+    let userId = loggedUser?.id;
+    if(this.updatedInterests.length > 0){
+      this.authService.updateUserById(userId,request).subscribe({
+        next:(res:any)=>{
+          this.toaster.success('Interests updated successfully. (Note: Changes will be visible after Relogin)');
+          this.userInterests = this.updatedInterests;
+          this.updateInsterestClicked = false;
+        },
+        error:(err:any)=>{
+          this.toaster.error('Failed to update interests. Please try again.')
+          console.log(err);
+        }
+      })
+    }else{
+      this.toaster.warning('Please select at least one interest.')
+      return;
+    }
+  }
+
+  onInterestChange(event: Event, interest: string) {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      if (!this.updatedInterests.includes(interest)) {
+        this.updatedInterests.push(interest);
+      }
+    } else {
+      this.updatedInterests = this.updatedInterests.filter((item: any) => item !== interest);
+    }
   }
 }

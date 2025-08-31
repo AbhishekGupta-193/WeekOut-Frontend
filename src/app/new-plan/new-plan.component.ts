@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { PlanService } from './plan.service';
 import { ApplicationService } from '../application.service';
 import { LoaderService } from '../loader/loader.service';
@@ -31,7 +31,8 @@ import { ToasterService } from '../toaster/toaster.service';
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   templateUrl: './new-plan.component.html',
   styleUrl: './new-plan.component.scss'

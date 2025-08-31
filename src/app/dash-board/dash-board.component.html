@@ -18,7 +18,7 @@
     <button class="icon-btn">
       <i class="fas fa-bell"></i>
     </button>
-    <button class="icon-btn" (click)="goToUserProfile()">
+    <button class="icon-btn" [routerLink]="['/profile', loggedUserId]">
       <i class="fas fa-user-circle"></i>
     </button>
   </div>
@@ -104,7 +104,7 @@
         <span *ngFor="let tag of plan.tags" class="tag">{{ tag }}</span>
       </div>
       <div class="host">
-        <div class="host-name">
+        <div class="host-name" [routerLink]="['/profile', plan?.hostUser?.id]">
           <!-- <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">{{ plan.hostInitial }}</span> -->
           <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">{{plan.hostUser?.name[0] || 'X'}}</span>
           <div style="margin-top: 3px;">
@@ -141,12 +141,17 @@
       <div class="tags">
         <span class="tag" *ngFor="let interest of userInterests">{{interest}}</span>
       </div>
-        <div *ngIf="updateInsterestClicked" class="interests">
+      <div *ngIf="updateInsterestClicked" class="interests">
             <label *ngFor="let interest of interestsList; let i = index" class="interest-checkbox">
-                <input type="checkbox" />
+                <input 
+                type="checkbox"
+                [value]="interest"
+                [checked]="userInterests.includes(interest)"
+                (change)="onInterestChange($event, interest)"  
+                />
                 {{ interest }}
             </label>
-        </div>
+      </div>
     </div>
     <div class="for-you-description">
       <i class="fas fa-map fa-3x faded"></i>
@@ -180,7 +185,7 @@
         <span *ngFor="let tag of plan.tags" class="tag">{{ tag }}</span>
       </div>
       <div class="host">
-        <div class="host-name">
+        <div class="host-name" [routerLink]="['/profile', plan?.hostUser?.id]">
           <span class="host-icon bg-gradient-to-r from-blue-600 to-purple-600">{{plan.hostUser?.name[0] || 'X'}}</span>
           <div style="margin-top: 3px;">
             {{plan.hostUser?.name || 'Mr XYZ'}}
