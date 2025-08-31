@@ -455,3 +455,56 @@
     // padding: 20px;               /* Inner padding */
     // background-color: #fff; 
   }
+
+    .After_Edit_btns button{
+      width: 48%;
+    }
+    .After_Edit_btns {
+      display: flex;
+      justify-content: space-between;
+      gap: 2%;
+    }
+
+        .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      margin: 1rem 0rem 1rem 0rem;
+      border: 1px solid #d1cfcf;
+      padding: 1rem;
+      border-radius: 10px;
+
+      &.error-border {
+        border: 1px solid red;
+        padding: 0.5rem;
+        border-radius: 4px;
+      }
+
+      .interest-checkbox {
+        flex: 1 1 20%;
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+
+        input {
+          margin-right: 0.5rem;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .for-you-description button{
+    width: 100%;
+    border: 1px solid #2563eb;
+    color: #2563eb;
+    background-color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.for-you-description button:hover{
+  color: white;
+  background: linear-gradient(to right, #2563eb, #9333ea);
+}

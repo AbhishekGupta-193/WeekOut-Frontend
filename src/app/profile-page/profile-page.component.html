@@ -96,11 +96,29 @@
       <h3>My Interests</h3>
       <div class="contents">
         <div class="interests">
-          <span *ngFor="let interest of interests" class="interest-box">{{interest}}</span>
+          <span *ngFor="let interest of profileData?.interests" class="interest-box">{{interest}}</span>
         </div>
-        <button mat-raised-button color="primary" class="editInterestsBtn">
-          <mat-icon>edit</mat-icon> Edit Interests
-        </button>
+
+        <div *ngIf="updateInsterestClicked" class="interests">
+            <label *ngFor="let interest of interestsList; let i = index" class="interest-checkbox">
+                <input 
+                type="checkbox"
+                [value]="interest"
+                [checked]="userInterests.includes(interest)"
+                (change)="onInterestChange($event, interest)"  
+                />
+                {{ interest }}
+            </label>
+        </div>
+        <div class="for-you-description">
+          <button mat-raised-button *ngIf="!updateInsterestClicked" color="primary" class="editInterestsBtn" (click)="onUpdateInterestsClick()">
+            <mat-icon>edit</mat-icon> Edit Interests
+          </button>
+          <div *ngIf="updateInsterestClicked" class="After_Edit_btns">
+            <button (click)="onCancelChanges()">Cancel Changes</button>
+            <button (click)="onSaveChanges()" style="color: white;background: linear-gradient(to right, #2563eb, #9333ea);">Save Changes</button>
+        </div>
+        </div>
       </div>
     </div>
 

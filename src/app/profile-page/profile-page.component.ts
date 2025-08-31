@@ -80,12 +80,15 @@ constructor(
       ),
     });
 }
-
+updateInsterestClicked = false;
 selectedTab: string = 'plans'; // default tab
 loggedInUser: any;
 profileId: any;
+updatedInterests: any;
+userInterests: any;
 userData = sessionStorage.getItem('loggedInUser');
 loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
+profileData:any;
 
 ngOnInit(){
   this.loggedInUser = this.applicationService.loggedInUser || this.loggedInUserData;
@@ -172,7 +175,6 @@ ngOnInit(){
 
   }
 
-  profileData:any;
   onLandingToProfile(){
     if(this.profileId == null){
       this.toaster.error('Failed to fetch Profile Id.')
@@ -181,10 +183,62 @@ ngOnInit(){
     this.authService.getUserById(this.profileId).subscribe({
       next:(res:any)=>{
         this.profileData = res;
+        this.userInterests = this.profileData?.interests;
+        this.updatedInterests = [...this.userInterests];
       },
       error:(err:any)=>{
         this.toaster.error('Failed to fetch Profile Data.Please try again!')
       }
     })
+  }
+
+  onUpdateInterestsClick(){
+    this.updateInsterestClicked = true;
+  }
+  onCancelChanges(){
+    this.updateInsterestClicked = false;
+  }
+  onSaveChanges(){
+    let loggedUser = (this.applicationService.loggedInUser || this.loggedInUserData)
+    let request={
+      name : loggedUser?.name,
+      email : loggedUser?.email,
+      phoneNumber : loggedUser?.phoneNumber,
+      profilePictureUrl : loggedUser?.profilePictureUrl,
+      bio : loggedUser?.bio,
+      interests : this.updatedInterests,
+    };
+    let userId = loggedUser?.id;
+    if(this.profileData?.id !== loggedUser?.id){
+      this.toaster.warning(`You are not authorized to edit other user's interests`);
+      return;
+    }
+    if(this.updatedInterests.length > 0){
+      this.authService.updateUserById(userId,request).subscribe({
+        next:(res:any)=>{
+          this.toaster.success('Interests updated successfully. (Note: Changes will be visible after Refresh)');
+          this.userInterests = this.updatedInterests;
+          this.updateInsterestClicked = false;
+        },
+        error:(err:any)=>{
+          this.toaster.error('Failed to update interests. Please try again.')
+          console.log(err);
+        }
+      })
+    }else{
+      this.toaster.warning('Please select at least one interest.')
+      return;
+    }
+  }
+
+  onInterestChange(event: Event, interest: string) {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      if (!this.updatedInterests.includes(interest)) {
+        this.updatedInterests.push(interest);
+      }
+    } else {
+      this.updatedInterests = this.updatedInterests.filter((item: any) => item !== interest);
+    }
   }
 }
