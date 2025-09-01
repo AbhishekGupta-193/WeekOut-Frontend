@@ -13,6 +13,8 @@ import { LoaderService } from '../loader/loader.service';
 import { ToasterService } from '../toaster/toaster.service';
 import { RouterModule } from '@angular/router';
 import { SearchFilterPipe } from '../pipes/search-filter.pipe';
+import { GoogleMapsModule } from '@angular/google-maps';
+
 @Component({
   selector: 'app-dash-board',
   standalone: true,
@@ -24,7 +26,8 @@ import { SearchFilterPipe } from '../pipes/search-filter.pipe';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    SearchFilterPipe
+    SearchFilterPipe,
+    GoogleMapsModule
   ],
   templateUrl: './dash-board.component.html',
   styleUrl: './dash-board.component.scss'
@@ -91,6 +94,7 @@ export class DashBoardComponent {
 
   userData = sessionStorage.getItem('loggedInUser');
   loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
+  center: google.maps.LatLngLiteral = { lat: 12.9716, lng: 77.5946 }; // Bengaluru
   
   ngOnInit() {
   this.userName = (this.applicationService.loggedInUser || this.loggedInUserData)?.name;

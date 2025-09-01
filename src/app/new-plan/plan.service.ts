@@ -45,7 +45,7 @@ export class PlanService {
   getPlansBasedOnUserInterest(tags: string[]):Observable<any>{
     console.log("getPlansBasedOnInterest API working");
     let params = new HttpParams();
-    tags.forEach(tag => {
+    tags?.forEach(tag => {
       params = params.append("tags", tag);
     });
     return this.http.get(this.applicationService.baseURL+'/plans/get',{ params });
