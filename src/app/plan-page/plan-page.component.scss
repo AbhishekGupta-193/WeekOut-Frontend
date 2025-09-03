@@ -243,3 +243,28 @@
  .plan-description{
     margin-top: -25px;
  }
+
+
+ //MEDIA QUERIES
+
+@media (max-width: 480px) {
+    .plan-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    }
+
+    .plan-header{
+      padding: 1rem 1rem;
+      gap: 6rem;
+    }
+
+    .plan-content{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem;
+    width: 90%;
+    }
+  }

@@ -428,3 +428,60 @@
       padding: 1rem;
       border-radius: 1rem;
     }
+
+//MEDIA QUERIES
+
+@media (max-width: 480px) {
+ .header-right{
+    .btn-gradient{
+      display: none;
+    }
+ }
+
+ .dashboard-header{
+  display: flex;
+  flex-direction: row;
+  gap: 7rem;
+
+  .header-left{
+    margin-left: -3rem;
+  }
+ }
+
+ .welcome-section{
+  margin: 1rem 1rem;
+ }
+
+ .welcome-buttons{
+  padding: 1rem 1rem;
+ }
+
+ .search-filter-bar{
+    padding: 1rem 1rem;
+    display: flex;
+    flex-direction: row;
+    .search-bar2{
+      width: 70%;
+    }
+ }
+
+ .toggle-nav{
+  margin: 1rem 1rem;
+ }
+ .content-section{
+  padding: 1rem 1rem;
+
+  .plan-card{
+    width: 100%;
+  }
+ }
+
+ .spot-card{
+  width: 100%;
+ }
+}
+
+
+@media (max-width: 768px) {
+  
+}

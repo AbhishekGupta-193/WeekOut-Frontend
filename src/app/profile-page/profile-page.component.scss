@@ -508,3 +508,78 @@
   color: white;
   background: linear-gradient(to right, #2563eb, #9333ea);
 }
+
+//MEDIA QUERIES
+
+@media (max-width: 480px) {
+  .profile-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  .plan-header{
+    padding: 1rem 1rem;
+    gap: 5rem;
+  }
+  .profile-header{
+    width: 95%;
+  }
+
+  .profile-info{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-img-wrapper{
+    margin-left: -21rem;
+    margin-top: 4rem;
+  }
+
+  .user-details{
+    margin-top: -2rem;
+  }
+  .action-buttons{
+    margin-top: 2rem !important;
+  }
+
+  .stats-row{
+    font-size: 10px;
+    justify-content: space-between;
+    margin-top: 3rem;
+  }
+
+  .toggle-section{
+    padding: 1rem 1rem;
+    width: 90%
+  }
+
+  .toggle-section button{
+    font-size: 12px;
+  }
+
+  .content-section{
+    width: 90%;
+  }
+
+  .review-card{
+    flex-direction: column;
+    align-items: center;
+
+    p{
+      text-align: center;
+    }
+
+    .review-content{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .badge_about p{
+    text-align: center;
+  }
+}

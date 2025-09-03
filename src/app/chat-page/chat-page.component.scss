@@ -414,3 +414,48 @@
 .chat-section::-webkit-scrollbar {
   display: none;         
 }
+
+//MEDIA QUERIES
+
+@media (max-width: 480px) {
+    .chat-window{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    }
+
+    .chat-container-left{
+        width: 90%;
+        margin-left:5%;
+    }
+    .chat-container{
+        flex-direction: column;
+    }
+    .chat-container-right{
+    margin-left: 5%;
+    width: unset;
+    margin-right: 5%;
+    margin-top: 5%;
+    }
+
+    .chat-header{
+     padding: 1rem 1rem;
+    width: 90%;
+
+    .plan-title{
+        padding-left: 10%;
+    }
+    }
+
+    .messages{
+        overflow-x: hidden;
+    }
+
+    .plan-brief{
+        .tag span{
+            font-size: 10px !important;
+        }
+    }
+}
