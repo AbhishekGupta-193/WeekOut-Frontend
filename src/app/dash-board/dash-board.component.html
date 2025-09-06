@@ -30,7 +30,29 @@
   <p>Ready to make this weekend awesome?</p>
 </section>
 
-<div class="welcome-buttons">
+<div class="package-type">
+  <div class="container">
+    <div class="casual-plan" (click)="setactivePackage('free')"
+      [ngClass]="{'bgColorPurple': activePackage === 'free'}">
+      <i class="fa-solid fa-users" [ngStyle]="{'color': activePackage === 'free' ? 'white':'black'}"></i>
+      <span>Casual Plans</span>
+      <div class="free">
+        <span>Free</span>
+      </div>
+    </div>
+    <div class="package-plan" (click)="setactivePackage('premium')"
+      [ngClass]="{'bgColorGreen': activePackage === 'premium'}">
+      <i class="fa-solid fa-cube"></i>
+      <span>Trip Packages</span>
+      <div class="premium">
+        <span>Premium</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="welcome-buttons" *ngIf="activePackage === 'free'">
   <button class="btn-gradient" (click)="goToCreatePlanPage()">+ Create Plan</button>
   <button class="btn-outline">
     <i class="fas fa-fire"></i> Trending
@@ -38,7 +60,7 @@
 </div>
 
 <!-- Toggle Navigation -->
-<nav class="toggle-nav">
+<nav class="toggle-nav"  *ngIf="activePackage === 'free'">
   <button
     [class.active]="activeTab === 'explore'"
     (click)="setActiveTab('explore');getAllPlansToExplore()"
@@ -60,7 +82,7 @@
 </nav>
 
 <!-- Search + Filter Bar -->
-<div class="search-filter-bar">
+<div class="search-filter-bar"  *ngIf="activePackage === 'free'">
   <div class="search-wrapper2">
     <i class="fas fa-search"></i>
     <input type="text" [(ngModel)]="searchText" placeholder="Search Plans..." class="search-bar2" />
@@ -86,8 +108,8 @@
 
 
 
-<!-- Content Sections -->
-<div class="content-section">
+<!-- Casual Plans Content Sections -->
+<div class="content-section"  *ngIf="activePackage === 'free'">
   <!-- EXPLORE PLANS -->
   <div class="active-content-section" *ngIf="activeTab === 'explore'">
     <div class="plan-card" *ngFor="let plan of allPlansToExplore | searchFilter:searchText:planTypes.value">
@@ -250,6 +272,47 @@
          </google-map>
        </div>
 
+    </div>
+  </div>
+</div>
+
+<!-- Premium Plans Content Sections -->
+<div class="package-section"  *ngIf="activePackage === 'premium'">
+  <div style="padding: 0 0 6px 0;">
+    <span style="font-weight: bold;font-size: 20px;">
+      <i class="fa-solid fa-fire" style="color: #059b0a;"></i>
+      Popular Packages!!</span>
+  </div>
+  <div class="active-content-section">
+    <div class="plan-card package-card" *ngFor="let plan of packagePlans" [routerLink]="['/package']">
+      <div class="bg-image">
+        <img src={{plan.img}} alt="img">
+      </div>
+      <div class="package-brief">
+        <div class="plan-header package-header">
+          <h3>2D/1N Trek To Coorg</h3>
+          <span>Experience the beauty of coffee plantations and misty mountains
+            with the guided trek to Coorg.
+          </span>
+        </div>
+        <div class="plan-location">
+          <p><i class="fas fa-map-marker-alt"></i>Coorg, Karnataka</p>
+          <p><i class="fas fa-calendar"></i>2 Days, 1 Night</p>
+        </div>
+        <div class="plan-expense">
+          <div class="amount">
+            <span class="expense-val">₹ 3500/</span>
+            <span class="per-person">person</span>
+          </div>
+          <div class="plan-vacancy">
+            <span class="slots-left">4 slots left</span>
+            <span class="slots-booked">8/12 booked</span>
+          </div>
+        </div>
+        <!-- <div class="tags">
+          <span *ngFor="let tag of plan.tags" class="tag">{{ tag }}</span>
+        </div> -->
+      </div>
     </div>
   </div>
 </div>

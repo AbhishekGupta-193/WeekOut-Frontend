@@ -8,6 +8,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
+import { PackagePageComponent } from './package-page/package-page.component';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ import { ChatPageComponent } from './chat-page/chat-page.component';
     ToasterComponent,
     LoaderComponent,
     ChatPageComponent,
+    PackagePageComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

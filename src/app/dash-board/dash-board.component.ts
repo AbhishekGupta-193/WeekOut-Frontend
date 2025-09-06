@@ -92,37 +92,47 @@ export class DashBoardComponent {
   'Relaxation & Wellness'
   ];
 
+  safeParse(value: string | null) {
+  try {
+    return value ? JSON.parse(value) : null;
+  } catch {
+    return null;
+  }
+}
   userData = sessionStorage.getItem('loggedInUser');
-  loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
+  loggedInUserData = this.safeParse(sessionStorage.getItem('loggedInUser'));
   center: google.maps.LatLngLiteral = { lat: 12.9716, lng: 77.5946 }; // Bengaluru
   
-  ngOnInit() {
+  ngOnInit() {  
   this.userName = (this.applicationService.loggedInUser || this.loggedInUserData)?.name;
   this.loggedUserId = (this.applicationService.loggedInUser || this.loggedInUserData)?.id;
   this.userInterests = (this.applicationService.loggedInUser || this.loggedInUserData)?.interests;
   this.updatedInterests = [...this.userInterests];
   this.planTypes.setValue(['All Types']); // default
-  this.getAllPlansToExplore();
+  // this.getAllPlansToExplore();
   this.activeTab = 'explore'
+  this.activePackage = 'premium'
 }
   activeTab: 'explore' | 'forYou' | 'nearby' = 'explore';
+  activePackage: 'free' | 'premium' = 'premium';
 
   allPlansToExplore: any;
   allPlansForYou: any;
-  explorePlans = [
+  packagePlans = [
     {
       id: 1,
       title: 'Weekend Trek to Nandi Hills',
       type: 'Trek',
       date: '09-04-2025',
       time: '06:20',
-      location: 'Majestic Bus Stand',
+      meetupPoint: 'Majestic Bus Stand',
       tags: ['Adventure', 'Photography', 'Nature'],
       host: 'Rahul Sharma',
       hostInitial: 'R',
-      people: '6/8',
+      maxMembers: '8',
       icon: 'fa-mountain',
       joined: false,
+      img: "assets/Coorg.jpg"
     },
     {
       id: 2,
@@ -130,69 +140,14 @@ export class DashBoardComponent {
       type: 'Cafe',
       date: '09-04-2025',
       time: '06:20',
-      location: 'Indiranagar',
+      meetupPoint: 'Indiranagar',
       tags: ['Coffee', 'Friends'],
       host: 'Rahul Sharma',
       hostInitial: 'R',
-      people: '3/5',
+      maxMembers: '5',
       icon: 'fa-mug-hot',
       joined: false,
-    },
-    {
-      id: 1,
-      title: 'Weekend Trek to Nandi Hills',
-      type: 'Trek',
-      date: '09-04-2025',
-      time: '06:20',
-      location: 'Majestic Bus Stand',
-      tags: ['Adventure', 'Photography', 'Nature'],
-      host: 'Rahul Sharma',
-      hostInitial: 'R',
-      people: '6/8',
-      icon: 'fa-mountain',
-      joined: false,
-    },
-    {
-      id: 2,
-      title: 'Evening Cafe Meetup',
-      type: 'Cafe',
-      date: '09-04-2025',
-      time: '06:20',
-      location: 'Indiranagar',
-      tags: ['Coffee', 'Friends'],
-      host: 'Rahul Sharma',
-      hostInitial: 'R',
-      people: '3/5',
-      icon: 'fa-mug-hot',
-      joined: false,
-    },
-    {
-      id: 1,
-      title: 'Weekend Trek to Nandi Hills',
-      type: 'Trek',
-      date: '09-04-2025',
-      time: '06:20',
-      location: 'Majestic Bus Stand',
-      tags: ['Adventure', 'Photography', 'Nature'],
-      host: 'Rahul Sharma',
-      hostInitial: 'R',
-      people: '6/8',
-      icon: 'fa-mountain',
-      joined: false,
-    },
-    {
-      id: 2,
-      title: 'Evening Cafe Meetup',
-      type: 'Cafe',
-      date: '09-04-2025',
-      time: '06:20',
-      location: 'Indiranagar',
-      tags: ['Coffee', 'Friends'],
-      host: 'Rahul Sharma',
-      hostInitial: 'R',
-      people: '3/5',
-      icon: 'fa-mug-hot',
-      joined: false,
+      img: "assets/Goa.jpg"
     },
   ];
 
@@ -208,6 +163,10 @@ export class DashBoardComponent {
 
   setActiveTab(tab: 'explore' | 'forYou' | 'nearby') {
     this.activeTab = tab;
+  }
+
+  setactivePackage(tab: 'free' | 'premium') {
+    this.activePackage = tab;
   }
 
   joinPlan(plan: any) {

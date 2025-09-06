@@ -1,0 +1,270 @@
+.plan-page {
+}
+
+.plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #d1cfcf;
+  padding: 1rem 20rem;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2px 10px;
+    border-radius: 6px;
+
+    .back-icon {
+      cursor: pointer;
+    }
+
+    .back-text {
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+
+  .header-right {
+    display: flex;
+    gap: 1rem;
+
+    .icon-btn {
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 2px 4px;
+    }
+  }
+}
+
+.plan-content {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1.5rem;
+  padding: 1rem 20rem;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.plan-card {
+  padding: 1rem;
+  border: 1px solid #d1cfcf;
+  background-color: white;
+  border-radius: 10px;
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .status {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+  }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.25rem 0;
+    color: #555;
+  }
+
+  .tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+
+    .tag {
+      background: #f1f1f1;
+      padding: 0.3rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+  }
+
+  .host-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .profile-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+  }
+
+  .attendee-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .attendees-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.3rem 0;
+      cursor: pointer;
+    }
+
+    .role {
+      font-size: 0.8rem;
+      color: gray;
+      border: 1px solid #d1cfcf;
+      padding: 2px 6px;
+      border-radius: 6px;
+}
+    }
+
+    .dotted-icon {
+      color: #bbb;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+  }
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+
+    .detail-value {
+      font-weight: 500;
+    }
+  }
+
+  .similar-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+
+    p {
+      margin: 0;
+      font-weight: 500;
+    }
+
+    span {
+      font-size: 0.85rem;
+      color: #777;
+    }
+  }
+
+
+.gradient-btn {
+  background:linear-gradient(to right, #1fe753, #059b0a);
+  color: #fff !important;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.full-btn {
+  width: 100%;
+  cursor: pointer;
+}
+
+  .header-left:hover {
+    background: linear-gradient(to right, #1fe753, #059b0a);
+    color: white;
+  }
+
+    .name-profile-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #9333ea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 4px;
+      margin-bottom: 6px;
+      color: white;
+    }
+
+    .spots-left{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .host-info h5{
+        margin-bottom: 0;
+    }
+    .host-info h4{
+        margin-bottom: 0;
+    }
+    .host-info p{
+        margin-top: 4px;
+    }
+    .chip-style{
+        border: 1px solid #d1cfcf;
+        padding: 2px 6px;
+        border-radius: 6px;
+    }
+    .status{
+      display: flex;
+      gap: 10px;
+    }
+    .openStatus{
+        background-color: #2563eb;
+        color: white;
+    }
+    .deleteStatus{
+        background-color: #cb092d;
+        color: white;
+        cursor: pointer;
+    }
+ .plan-description{
+    margin-top: -25px;
+ }
+
+
+ //MEDIA QUERIES
+
+@media (max-width: 480px) {
+    .plan-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    }
+
+    .plan-header{
+      padding: 1rem 1rem;
+      gap: 6rem;
+    }
+
+    .plan-content{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem;
+    width: 90%;
+    }
+  }

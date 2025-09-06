@@ -6,6 +6,7 @@ import { NewPlanComponent } from './new-plan/new-plan.component';
 import { PlanPageComponent } from './plan-page/plan-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
+import { PackagePageComponent } from './package-page/package-page.component';
 
 
 export const routes: Routes = [
@@ -17,5 +18,6 @@ export const routes: Routes = [
   { path: 'profile', component: ProfilePageComponent },  // profile page
   { path: 'profile/:id', component: ProfilePageComponent },  // profile page with id
   { path: 'chat/:id', component: ChatPageComponent },  // plan page
+  { path: 'package', component: PackagePageComponent },  // package page
   { path: '**', redirectTo: '', pathMatch: 'full' } 
 ];
