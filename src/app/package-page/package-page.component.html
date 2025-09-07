@@ -4,8 +4,9 @@
   <header class="plan-header">
     <div class="header-left" (click)="backToDashboard()">
       <mat-icon class="back-icon">arrow_back</mat-icon>
-      <span class="back-text">Back to Dashboard</span>
+      <span class="back-text">Back</span>
     </div>
+    <h3 style="margin-right: 60%;">2D/1N Trek to Coorg</h3>
     <div class="header-right">
       <mat-icon class="icon-btn">flag</mat-icon>
       <mat-icon class="icon-btn">share</mat-icon>
@@ -16,59 +17,217 @@
     <!-- LEFT SIDE -->
     <div class="left-column">
 
-      <!-- Card 1 -->
-      <mat-card class="plan-card">
-        <div class="card-header">
-          <div class="plan-type chip-style">{{planPageData.type}}</div>
-          <div class="status">
-            <span class="deleteStatus chip-style" *ngIf="hasUserRightToDelete()" (click)="onDeletePlanClick()">Delete</span>
-            <span class="openStatus chip-style">Open</span>
+      <!-- Card 0 -->
+      <mat-card class="plan-card" style="padding: 0;height: 15rem;">
+        <div class="bg-image">
+          <img src="assets\Goa.jpg" alt="img">
+          <div class="card-header" style="position: relative;top: -15rem;margin: 0 8px;">
+            <div class="plan-type chip-style">Trek</div>
+            <div class="status">
+              <span class="deleteStatus chip-style" *ngIf="hasUserRightToDelete()" (click)="onDeletePlanClick()">Delete</span>
+              <span class="openStatus chip-style">Open</span>
+            </div>
           </div>
         </div>
-        <h3>{{planPageData.title}}</h3>
-        <div class="info-row">
-          <mat-icon>event</mat-icon>
-          <span>{{planPageData.date}}</span>
-        </div>
-        <div class="info-row">
-          <mat-icon>schedule</mat-icon>
-          <span>{{planPageData.time}}</span>
-        </div>
-        <div class="info-row">
-          <mat-icon>place</mat-icon>
-          <span>{{planPageData.meetupPoint}}</span>
-        </div>
+      </mat-card>
+
+      <!-- Card 1 -->
+      <mat-card class="plan-card">
         <h4 class="plan-about">About this plan</h4>
+        <div class="info">
+          <div class="info-row">
+            <mat-icon>event</mat-icon>
+            <span>14/09/2025 at 10:00</span>
+          </div>
+          <div class="info-row">
+            <mat-icon>place</mat-icon>
+            <span>SMVT Railway Station</span>
+          </div>
+        </div>
         <div class="plan-description">
             <p>
-              {{planPageData.description}}
+              Experience the beauty of coffee plantations and misty mountains with this guided trek to Coorg
             </p>
         </div>
         <div class="tags">
-          <span class="tag" *ngFor="let tag of planPageData.tags">{{tag}}</span>
+          <!-- <span class="tag" *ngFor="let tag of planPageData.tags">{{tag}}</span> -->
         </div>
       </mat-card>
 
-      <!-- Card 2 -->
+      <!-- Card 1 -->
       <mat-card class="plan-card">
-        <h4>Hosted by</h4>
-        <div class="host-info">
-          <div class="profile-circle">{{planPageData?.hostUser?.name[0] || 'X'}}</div>
-          <div>
-            <h5>{{planPageData?.hostUser?.name || 'Mr XYZ'}}</h5>
-            <p>Plans hosted: 12 • Rating: 4.8/5</p>
+        <h4 class="plan-itinerary">Day-wise Itinerary</h4>
+        <div class="itinerary-section">
+          <div  (click)="onArrow1Click()" style="display: flex;justify-content: space-between;border-bottom: 1px solid #ccc;">
+            <div class="host-info" >
+              <div class="profile-circle" style="color: white;background-color: oklch(.627 .194 149.214);">1</div>
+              <div>
+                <h5>Arrival & Beach Time</h5>
+                <p style="font-size: 12px;color: #555;letter-spacing: 2px;">Lunch,Dinner Included</p>
+              </div>
+          </div>
+          <div class="arrow-icon" *ngIf="!isOpened1">
+            <i class="fa-regular fa-circle-right"></i>
+          </div>
+          <div class="arrow-icon" *ngIf="isOpened1">
+            <i class="fa-regular fa-circle-down"></i>
           </div>
         </div>
-        <button mat-button class="gradient-btn" [routerLink]="['/profile', planPageData?.hostUser?.id]">View Profile</button>
+
+        <div class="itinerary-content" *ngIf="isOpened1">
+          <div class="part-1">
+            <div class="activites">
+              <h4> <i class="fa-solid fa-clock"></i> Activites</h4>
+              <ul>
+                <li>8:00 AM - Departure from Bangalore</li>
+                <li>4:00 PM - Check-in at beach resort</li>
+                <li> 6:00 PM - Welcome drinks & beach walk</li>
+                <li>8:00 PM - Dinner at beach shack</li>
+              </ul>
+            </div>
+
+            <div class="meals">
+              <h4> <i class="fa-solid fa-utensils"></i> Meals</h4>
+              <div style="display: flex;gap:10px;margin-left: 4%;">
+                <span>Lunch</span>
+                <span>Dinner</span>
+              </div>
+            </div>
+
+            <div class="accomodation">
+              <h4> <i class="fa-solid fa-bed"></i> Accomodation</h4>
+              <div style="margin-left: 4%;">
+                Beach Resort
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+        <div class="itinerary-section">
+          <div  (click)="onArrow2Click()" style="display: flex;justify-content: space-between;border-bottom: 1px solid #ccc;">
+            <div class="host-info" >
+              <div class="profile-circle" style="color: white;background-color: oklch(.627 .194 149.214);">2</div>
+              <div>
+                <h5>Water Sports & Exploration</h5>
+                <p style="font-size: 12px;color: #555;letter-spacing: 2px;">Breakfast,Lunch,Dinner Included</p>
+              </div>
+          </div>
+          <div class="arrow-icon" *ngIf="!isOpened2">
+            <i class="fa-regular fa-circle-right"></i>
+          </div>
+          <div class="arrow-icon" *ngIf="isOpened2">
+            <i class="fa-regular fa-circle-down"></i>
+          </div>
+        </div>
+
+        <div class="itinerary-content" *ngIf="isOpened2">
+          <div class="part-1">
+            <div class="activites">
+              <h4> <i class="fa-solid fa-clock"></i> Activites</h4>
+              <ul>
+                <li>9:00 AM - Parasailing & jet skiing</li>
+                <li>12:00 PM - Beach lunch</li>
+                <li>3:00 PM - Visit to local markets</li>
+                <li>6:00 PM - Sunset cruise</li>
+                <li>9:00 PM - Night market & dinner</li>
+              </ul>
+            </div>
+
+            <div class="meals">
+              <h4> <i class="fa-solid fa-utensils"></i> Meals</h4>
+              <div style="display: flex;gap:10px;margin-left: 4%;">
+                <span>Breakfast</span>
+                <span>Lunch</span>
+                <span>Dinner</span>
+              </div>
+            </div>
+
+            <div class="accomodation">
+              <h4> <i class="fa-solid fa-bed"></i> Accomodation</h4>
+              <div style="margin-left: 4%;">
+                Beach Resort
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="itinerary-section">
+          <div  (click)="onArrow3Click()" style="display: flex;justify-content: space-between;border-bottom: 1px solid #ccc;">
+            <div class="host-info" >
+              <div class="profile-circle" style="color: white;background-color: oklch(.627 .194 149.214);">3</div>
+              <div>
+                <h5>Relaxation & Departure</h5>
+                <p style="font-size: 12px;color: #555;letter-spacing: 2px;">Breakfast,Lunch Included</p>
+              </div>
+          </div>
+          <div class="arrow-icon" *ngIf="!isOpened3">
+            <i class="fa-regular fa-circle-right"></i>
+          </div>
+          <div class="arrow-icon" *ngIf="isOpened3">
+            <i class="fa-regular fa-circle-down"></i>
+          </div>
+        </div>
+
+        <div class="itinerary-content" *ngIf="isOpened3">
+          <div class="part-1">
+            <div class="activites">
+              <h4> <i class="fa-solid fa-clock"></i> Activites</h4>
+              <ul>
+                <li> 10:00 AM - Beach relaxation & spa (optional)</li>
+                <li> 1:00 PM - Check-out & lunch</li>
+                <li> 3:00 PM - Departure to Bangalore</li>
+                <li>11:00 PM - Reach Bangalore</li>
+              </ul>
+            </div>
+
+            <div class="meals">
+              <h4> <i class="fa-solid fa-utensils"></i> Meals</h4>
+              <div style="display: flex;gap:10px;margin-left: 4%;">
+                <span>Breakfast</span>
+                <span>Lunch</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
       </mat-card>
 
+      <!-- Card 1 -->
+       <div class="plan-card-content">
+         <mat-card class="plan-card inclusion">
+           <span class="inclusion-title"> <i class="fa-solid fa-check"></i>Inclusions</span>
+           <span class="inclusions"><i class="fa-solid fa-check"></i>AC Bus transportation</span>
+           <span class="inclusions"><i class="fa-solid fa-check"></i>Accommodation in tents</span>
+           <span class="inclusions"><i class="fa-solid fa-check"></i>All meals as per itinerary</span>
+           <span class="inclusions"><i class="fa-solid fa-check"></i>Professional guide</span>
+           <span class="inclusions"><i class="fa-solid fa-check"></i>Entry fees</span>
+           <span class="inclusions"><i class="fa-solid fa-check"></i>First aid support</span>
+         </mat-card>
+
+         <mat-card class="plan-card exclusion">
+           <span class="exclusion-title"> <i class="fa-solid fa-xmark"></i> Exclusions</span>
+           <span class="exclusions"><i class="fa-solid fa-xmark"></i>Personal expenses</span>
+           <span class="exclusions"><i class="fa-solid fa-xmark"></i>Tips to guide/driver</span>
+           <span class="exclusions"><i class="fa-solid fa-xmark"></i>Alcoholic beverages</span>
+           <span class="exclusions"><i class="fa-solid fa-xmark"></i>Insurance</span>
+           <span class="exclusions"><i class="fa-solid fa-xmark"></i>Anything not mentioned in inclusions</span>
+         </mat-card>
+
+
+       </div>
+
+
       <!-- Card 3 -->
-      <mat-card class="plan-card">
+      <!-- <mat-card class="plan-card">
         <div class="attendee-header">
-          <h4>Attendees {{planPageData.maxMembers}}</h4>
+          <h4>Attendees 8</h4>
           <div class="spots-left">
             <mat-icon>people</mat-icon>
-            <span>{{getAvailableSpots(planPageData).length}} spots left</span>
+            <span>6 spots left</span>
           </div>
         </div>
         <ul class="attendees-list">
@@ -80,7 +239,7 @@
             <mat-icon class="dotted-icon">radio_button_unchecked</mat-icon> Available spot
           </li>
         </ul>
-      </mat-card>
+      </mat-card> -->
 
     </div>
 
@@ -88,12 +247,56 @@
     <div class="right-column">
 
       <!-- Card 1 -->
-      <mat-card class="plan-card join-card">
-        <button mat-raised-button class="gradient-btn full-btn" (click)="onPlanJoinClick()">Join this Plan</button>
+      <mat-card class="plan-card join-card book-now-card">
+        <div class="row-1">
+          <div class="cost">
+            <span class="amount">₹ 3500</span>
+            <span class="perPerson" style="color: #555;">per person</span>
+          </div>
+          <div class="slots">
+            <span class="slots-left">4 slots left</span>
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="duration">
+            <span class="duration-text" style="color: #555;">Duration</span>
+            <span class="days" style="font-weight: bold;">2 Days, 1 Night</span>
+          </div>
+          <div class="tripDate">
+            <span class="tripDate-text" style="color: #555;">Trip Date</span>
+            <span class="date" style="font-weight: bold;">14/09/2025</span>
+          </div>
+        </div>
+        <div class="row-3">
+          <div class="slots-available">
+            <span class="slots-text">Slots</span>
+            <span class="booked" style="font-weight: bold;">8/12 booked</span>
+          </div>
+          <div class="deposit">
+            <span class="deposit-text" style="color: #555;">Deposit</span>
+            <span class="deposit-amount" style="font-weight: bold;color:#025802 ;">₹1000</span>
+          </div>
+        </div>
+        <button mat-raised-button class="gradient-btn full-btn">Book Now</button>
+        <span class="disclaimer">Pay deposit to confirm your slot. Remaining amount due before trip.</span>
       </mat-card>
 
-      <!-- Card 2 -->
+            <!-- Card 2 -->
       <mat-card class="plan-card">
+        <h4>Hosted by</h4>
+        <div class="host-info">
+          <div class="profile-circle">X</div>
+          <div>
+            <h5>Mr XYZ</h5>
+            <p>Plans hosted: 12 • Rating: 4.8/5</p>
+          </div>
+        </div>
+        <button mat-button class="gradient-btn" [routerLink]="['/profile', planPageData?.hostUser?.id]">View Profile</button>
+      </mat-card>
+
+
+      <!-- Card 2 -->
+      <!-- <mat-card class="plan-card">
         <h4>Plan Details</h4>
         <div class="detail-row">
           <span>Visibility</span>
@@ -107,7 +310,7 @@
           <span>Views</span>
           <span class="detail-value">24</span>
         </div>
-      </mat-card>
+      </mat-card> -->
 
       <!-- Card 3 -->
       <mat-card class="plan-card">

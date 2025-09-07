@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -37,7 +37,7 @@ import { ToasterService } from '../toaster/toaster.service';
   templateUrl: './package-page.component.html',
   styleUrl: './package-page.component.scss'
 })
-export class PackagePageComponent {
+export class PackagePageComponent implements OnInit {
   constructor(
   private router: Router,
   private planService: PlanService,
@@ -48,16 +48,31 @@ export class PackagePageComponent {
 ) {}
 
 planPageData:any;
-  planId:any;
-  loggedInUser: any;
-  userData = sessionStorage.getItem('loggedInUser');
-  loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
-  ngOnInit(){
-    this.loggedInUser = this.applicationService.loggedInUser || this.loggedInUserData;
-    this.planId = this.route.snapshot.paramMap.get('id');
-    this.getPlanPageDetails();  
-  }
+planId:any;
+loggedInUser: any;
+userData = sessionStorage.getItem('loggedInUser');
+loggedInUserData = this.userData ? JSON.parse(this.userData) : null;
+ngOnInit(){
+  this.loggedInUser = this.applicationService.loggedInUser || this.loggedInUserData;
+  this.planId = this.route.snapshot.paramMap.get('id');
+  this.getPlanPageDetails();  
+  this.isOpened1 = false;
+  this.isOpened2 = false;
+  this.isOpened3 = false;
+}
+  isOpened1 = false;
+  isOpened2 = false;
+  isOpened3 = false;
 
+  onArrow1Click(){
+    this.isOpened1 = !this.isOpened1;
+  }
+  onArrow2Click(){
+    this.isOpened2 = !this.isOpened2;
+  }
+  onArrow3Click(){
+    this.isOpened3 = !this.isOpened3;
+  }
   backToDashboard(){
     this.router.navigate(['/dashboard'])
   }

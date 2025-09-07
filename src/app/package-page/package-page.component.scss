@@ -6,7 +6,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #d1cfcf;
-  padding: 1rem 20rem;
+  padding: 0rem 10rem;
 
   .header-left {
     display: flex;
@@ -41,7 +41,8 @@
   display: grid;
   grid-template-columns: 1.6fr 1fr;
   gap: 1.5rem;
-  padding: 1rem 20rem;
+  padding: 1rem 10rem;
+  background-color: oklch(.985 .002 247.839);
 }
 
 .left-column,
@@ -245,6 +246,194 @@
  }
 
 
+    .bg-image img{
+      width: 100%;
+      height: 15rem;
+      border-radius: 10px;
+    }
+
+.plan-about{
+  margin: 1rem 0;
+}
+
+.info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  color: #777;
+}
+
+.plan-card-content{
+  display: flex;
+  flex-direction: row;
+  gap: 2%;
+
+  .plan-card{
+    width: 48%;
+  }
+}
+
+.inclusion-title{
+  display: flex;
+  align-items: center;
+  color: #059b0a;
+  gap: 10px;
+  margin-bottom: 2rem;
+  font-size: 20px;
+
+  i{
+    font-size: 22px;
+    color: #059b0a;
+  }
+}
+
+.inclusions{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+  
+  i{
+    color: #059b0a;
+  }
+}
+.exclusion-title{
+  display: flex;
+  align-items: center;
+  color: rgb(235 28 28);
+  gap: 10px;
+  margin-bottom: 2rem;
+  font-size: 20px;
+  i{
+    font-size: 22px;
+    color: rgb(235 28 28);
+  }
+}
+
+.exclusions{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+  
+  i{
+    color:rgb(235 28 28);
+  }
+}
+
+.book-now-card{
+  gap: 1rem;
+  .row-1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .cost{
+      display: flex;
+      flex-direction: column;
+      .amount{
+        font-size: 22px;
+        font-weight: bolder;
+        color:#059b0a;
+      }
+    }
+    .slots{
+      display: flex;
+      flex-direction: column;
+      .slots-left{
+        font-size: 12px;
+        color: #025802;
+        background-color: #b2f1b2;
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+    }
+  }
+  .row-2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .duration{
+      display: flex;
+      flex-direction: column;
+    }
+    .tripDate{
+      display: flex;
+      flex-direction: column;
+      margin-right: 20%;
+    }
+  }
+  .row-3{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .slots-available{
+      display: flex;
+      flex-direction: column;
+    }
+    .deposit{
+      display: flex;
+      flex-direction: column;
+      margin-right: 26%;
+    }
+  }
+  .disclaimer{
+    color: #787575;
+    font-size: 12px;
+    margin: 0px 1rem;
+    text-align: center;
+  }
+}
+
+.plan-itinerary{
+  margin: 0px 6px 12px 6px;
+  color: #555;
+}
+.itinerary-section{
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+    h4{
+      margin-bottom: 8px;
+      display: flex;
+    gap: 8px;
+    align-items: center;
+    }
+    ul{
+      display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    }
+    .itinerary-content{
+      padding: 1rem;
+      background-color:oklch(.985 .002 247.839) ;
+    }
+    .host-info{
+      padding-left: 10px;
+    }
+    .arrow-icon{
+    padding-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: oklch(.627 .194 149.214);
+    }
+
+    .meals span{
+    background-color: #c1edc1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #025002;
+    }
+}
+.hidden{
+  display: none;
+}
+
+.displayed{
+  display: block;
+}
  //MEDIA QUERIES
 
 @media (max-width: 480px) {
